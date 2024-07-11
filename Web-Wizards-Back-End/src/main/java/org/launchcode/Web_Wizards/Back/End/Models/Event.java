@@ -1,12 +1,16 @@
 package org.launchcode.Web_Wizards.Back.End.Models;
 
-import javax.persistence.Column;
+import javax.persistence.*;
 import javax.validation.constraints.*;
-import javax.persistence.Entity;
 
 @Entity
 public class Event
 {
+    @Id
+    @SequenceGenerator(name="event_seq", sequenceName = "event_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_seq")
+    private Integer id;
+
     @NotBlank(message = "Name is required.")
     @Size(min = 3, max = 50, message = "Name field must be between 3 and 50 characters in length. Please try again.")
     private String name;
@@ -29,6 +33,12 @@ public class Event
 
     public Event()
     {
+    }
+
+    //Getters and setters...
+    public int getId()
+    {
+        return id;
     }
 
     public String getName()

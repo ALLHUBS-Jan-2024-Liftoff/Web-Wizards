@@ -3,14 +3,13 @@ package org.launchcode.Web_Wizards.Back.End.Models;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
-public class Post
+public class Comment
 {
     @Id
-    @SequenceGenerator(name="post_seq", sequenceName = "post_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "post_seq")
+    @SequenceGenerator(name="comment_seq", sequenceName = "comment_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comment_seq")
     private Integer id;
 
     @NotBlank
@@ -20,7 +19,7 @@ public class Post
 
     private User user;
 
-    private List<Comment> comments;
+    private Post post;
 
     //Getters and setters...
     public int getId()
@@ -56,5 +55,15 @@ public class Post
     public void setUser(User user)
     {
         this.user = user;
+    }
+
+    public Post getPost()
+    {
+        return post;
+    }
+
+    public void setPost(Post post)
+    {
+        this.post = post;
     }
 }

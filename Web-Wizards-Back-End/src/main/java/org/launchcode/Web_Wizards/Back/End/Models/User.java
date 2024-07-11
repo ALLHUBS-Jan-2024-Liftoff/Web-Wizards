@@ -1,13 +1,17 @@
 package org.launchcode.Web_Wizards.Back.End.Models;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 public class User
 {
-    private Long uid;
+    @Id
+    @SequenceGenerator(name="user_seq", sequenceName = "user_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
+    private Integer id;
 
     @NotBlank
     @Size(min = 2, max = 50)
@@ -21,10 +25,14 @@ public class User
     @Size(min = 8)
     private String password;
 
+    private List<Post> posts;
+
+    private List<Comment> comments;
+
     //Getters and setters...
-    public Long getUid()
+    public int getId()
     {
-        return uid;
+        return id;
     }
 
     public @NotBlank @Size(min = 2, max = 50) String getUsername()
