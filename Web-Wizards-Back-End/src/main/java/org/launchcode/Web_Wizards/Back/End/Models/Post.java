@@ -22,6 +22,19 @@ public class Post
 
     private List<Comment> comments;
 
+    //Constructors...
+    public Post()
+    {
+    }
+
+    public Post(String message, LocalDateTime created, User user, List<Comment> list)
+    {
+        this.content = message;
+        this.createdAt = created;
+        this.user = user;
+        this.comments = list;
+    }
+
     //Getters and setters...
     public int getId()
     {
@@ -56,5 +69,15 @@ public class Post
     public void setUser(User user)
     {
         this.user = user;
+    }
+
+    public List<Comment> getComments()
+    {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments)
+    {
+        this.comments = comments;
     }
 }

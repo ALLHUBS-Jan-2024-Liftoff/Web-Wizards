@@ -12,14 +12,35 @@ public class Comment
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comment_seq")
     private Integer id;
 
+    private String postID;
+
+    private String userID;
+
     @NotBlank
     private String content;
 
     private LocalDateTime createdAt;
 
+    private LocalDateTime updatedAt;
+
     private User user;
 
     private Post post;
+
+    //Constructors...
+    public Comment()
+    {
+    }
+
+    public Comment(String postID, String userID, String content, LocalDateTime created, LocalDateTime updated)
+    {
+        this.postID = postID;
+        this.userID = userID;
+        this.content = content;
+        this.createdAt = created;
+        this.updatedAt = updated;
+    }
+
 
     //Getters and setters...
     public int getId()
@@ -65,5 +86,35 @@ public class Comment
     public void setPost(Post post)
     {
         this.post = post;
+    }
+
+    public String getPostID()
+    {
+        return postID;
+    }
+
+    public void setPostID(String postID)
+    {
+        this.postID = postID;
+    }
+
+    public String getUserID()
+    {
+        return userID;
+    }
+
+    public void setUserID(String userID)
+    {
+        this.userID = userID;
+    }
+
+    public LocalDateTime getUpdatedAt()
+    {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt)
+    {
+        this.updatedAt = updatedAt;
     }
 }
