@@ -1,16 +1,25 @@
 import React from 'react';
-import Header from './components/Navbar'; // Adjust the import path as per your project structure
-import './css/Navbar.css'; // Make sure to adjust the CSS import if needed
-import './css/LoginForm.css'; // Make sure the path is correct
-import LoginForm from './components/LoginForm'; // Corrected import
+import Header from './components/Navbar';
+import './css/Navbar.css';
+import './css/LoginForm.css';
+import LoginForm from './components/LoginForm';
+import Slideshow from './components/SlideShow';
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <div>
-        <h1>Login Here!</h1>
-        <LoginForm />
+
+      <div className="content-container">
+        <div className="login-form-container">
+          <h2>Login</h2>
+          <LoginForm />
+        </div>
+
+        <div className="slideshow-container">
+          <h2>Check Out Our Slideshow</h2>
+          <Slideshow />
+        </div>
       </div>
     </div>
   );

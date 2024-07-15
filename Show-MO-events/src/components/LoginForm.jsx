@@ -50,6 +50,7 @@ const LoginForm = () => {
     <div className="form-container">
       <form onSubmit={handleSubmit}>
         <div>
+            <h1 className="form-header">Login or Register Here!</h1>
           <label htmlFor="username">Username:</label>
           <input
             type="text"

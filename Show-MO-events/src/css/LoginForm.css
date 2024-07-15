@@ -1,24 +1,23 @@
-/* LoginForm.css */
 .form-container {
   display: flex;
-  justify-content: flex-end;
-  padding-right: 10px; /* Optional: Add some padding to avoid touching the border */
+  justify-content: flex-end; /* Align form to the right side */
+  padding-right: 100px; /* Adjust padding to create space from the right edge */
+  padding-top: 120px; /* Add padding from the top to move the form down */
 }
 
 form {
   max-width: 400px;
-  margin: 20px 0; /* Changed from auto to 0 for no horizontal margin */
-  padding: 10px;
+  padding: 20px; /* Adjust padding for better appearance */
   border: 2px solid #ccc;
   border-radius: 10px;
-  background-image: url("/src/SPOILER_WebWizardTraining.png");
+  background-image: url("/src/assets/SPOILER_WebWizardTraining.png");
   background-size: cover; /* or use 'contain' */
   background-position: center;
   background-repeat: no-repeat;
 }
 
 form div {
-  margin-bottom: 20px; /* Adjusted for less spacing */
+  margin-bottom: 50px; /* Adjust spacing between form elements */
 }
 
 label {
@@ -51,4 +50,8 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+.form-header {
+font-size: 18px;
+
 }
