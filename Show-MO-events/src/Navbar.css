@@ -1,0 +1,49 @@
+/* Navbar.css */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  width: 100%; /* Make navbar span the full width */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Ensure it appears above other content */
+}
+
+.logo a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo img {
+  height: 100px; /* Adjust height as needed */
+  width: auto;
+}
+
+.nav-links {
+  list-style-type: none;
+  display: flex;
+  gap: 10px;
+  margin: 0; /* Reset margin to ensure links are flush against the navbar */
+  padding: 0; /* Reset padding to ensure links are flush against the navbar */
+}
+
+.nav-links li {
+  margin: 0;
+}
+
+.nav-links li a {
+  color: #fff;
+  text-decoration: align;
+  font-size: 2rem;
+  padding: 10px 15px; /* Adjust padding as needed */
+}
+
+.nav-links li a:hover {
+  background-color: #555;
+  border-radius: 5px;
+}
