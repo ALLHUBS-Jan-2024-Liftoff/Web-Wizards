@@ -10,10 +10,12 @@ form {
   padding: 20px; /* Adjust padding for better appearance */
   border: 2px solid #ccc;
   border-radius: 10px;
-  background-image: url("/src/assets/SPOILER_WebWizardTraining.png");
+  background-image: url("/src/asserts/SPOILER_WebWizardTraining.png");
   background-size: cover; /* or use 'contain' */
   background-position: center;
   background-repeat: no-repeat;
+  margin-top: 100px; /* Adjust the value as needed */
+
 }
 
 form div {

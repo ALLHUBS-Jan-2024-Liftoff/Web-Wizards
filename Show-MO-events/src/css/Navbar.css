@@ -3,7 +3,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #333;
+  background-image: url("/src/asserts/KC.jpg");
+  background-size: cover; /* Stretch the background image to cover the entire navbar */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Prevent the background image from repeating */
   color: #fff;
   padding: 10px 20px;
   width: 100%; /* Make navbar span the full width */
@@ -13,9 +16,13 @@
   z-index: 1000; /* Ensure it appears above other content */
 }
 
-.logo a {
+.logo {
   display: flex;
   align-items: center;
+}
+
+.logo a {
+  display: flex;
   text-decoration: none;
 }
 
@@ -38,12 +45,28 @@
 
 .nav-links li a {
   color: #fff;
-  text-decoration: align;
-  font-size: 2rem;
-  padding: 10px 15px; /* Adjust padding as needed */
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding: 10px 15px;
 }
 
 .nav-links li a:hover {
+  background-color: #555;
+  border-radius: 5px;
+}
+
+.nav-logOut {
+  margin-left: auto; /* Use auto to push the logout link to the far right */
+}
+
+.nav-logOut a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.5rem;
+  padding: 10px 15px;
+}
+
+.nav-logOut a:hover {
   background-color: #555;
   border-radius: 5px;
 }

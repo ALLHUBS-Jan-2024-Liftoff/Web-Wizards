@@ -7,7 +7,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="logo">
          <a href="/">
-                  <img src="/src/assets/SPOILER_WebWizardTraining.png" alt="Logo" />
+                  <img src="/src/asserts/SPOILER_WebWizardTraining.png" alt="Logo" />
                 </a>
 
       <ul className="nav-links">
@@ -15,6 +15,9 @@ const Navbar = () => {
         <li><a href="/services">Services</a></li>
         <li><a href="/contact">Contact</a></li>
       </ul>
+      <div className='nav-logOut a'>
+          <a href="/logout" className="nav-links">Logout</a>
+      </div>
     </div>
 
     </nav>
