@@ -1,5 +1,5 @@
 import React from 'react';
-import MainPage from './components/MainPage';
+import MainPage from './components/LandingPage/MainPage';
 import './css/Navbar.css';
 import './css/LoginForm.css';
 
