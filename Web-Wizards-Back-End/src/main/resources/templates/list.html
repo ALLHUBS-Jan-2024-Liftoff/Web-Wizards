@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+<body>
+<h1>Posts</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Content</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="post: ${posts}">
+        <td th:text="${post.title}">Title</td>
+        <td th:text="${post.content}">Content</td>
+        <td> <a th:href="@{/posts/{id}(id=${post.id})}">View</a>
+            <a th:href="@{/posts/edit/{id}(id=${post.id})}">Edit</a>
+            <a th:href="@{/posts/delete/{id}(id=${post.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

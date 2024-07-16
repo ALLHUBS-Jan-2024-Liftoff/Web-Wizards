@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Posts</title>
+</head>
+<body>
+
+<div th:replace="fragments :: page-header"></div>
+<div th:if="${posts.size() <= 0}" class="no-posts-container">
+  <p class="no-posts-message">No posts currently available...</p>
+</div>
+
+<div th:if="${posts.size() > 0}" class="container mt-5">
+  <h1 class="mb-4">All Posts</h1>
+  <div id="posts">
+    <div th:each="post : ${posts}" class="post-container">
+      <h2 th:text="${post.title}">Post Title</h2>
+      <p th:text="${post.content}">Post Content</p>
+    </div>
+  </div>
+</div>
+<!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>-->
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
+
+
+</body>
+</html>
