@@ -29,4 +29,10 @@ public class PostController
         Post savedPost = postRepository.save(post);
         return new ResponseEntity<>(savedPost, HttpStatus.CREATED);
     }
+
+    @GetMapping("/hello")
+    public String testEndpoint()
+    {
+        return "Hello. from the test endpoint!";
+    }
 }
