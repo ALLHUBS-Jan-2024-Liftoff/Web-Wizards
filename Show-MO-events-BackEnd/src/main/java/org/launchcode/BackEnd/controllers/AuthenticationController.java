@@ -1,6 +1,5 @@
 package org.launchcode.BackEnd.controllers;
 
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -9,16 +8,18 @@ import org.launchcode.BackEnd.models.data.UserRepository;
 import org.launchcode.BackEnd.models.dto.LoginFormDTO;
 import org.launchcode.BackEnd.models.dto.RegisterFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
-@Controller
+@RestController
+@RequestMapping("/api/auth")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class AuthenticationController {
 
     @Autowired
@@ -45,88 +46,75 @@ public class AuthenticationController {
         session.setAttribute(userSessionKey, user.getId());
     }
 
-
-    @GetMapping("/register")
-    public String displayRegistrationForm(Model model) {
-        model.addAttribute(new RegisterFormDTO());
-        model.addAttribute("title", "Register");
-        return "register";
-
-    }
-    @GetMapping("/login")
-    public String displayLoginForm(Model model) {
-        model.addAttribute(new LoginFormDTO());
-        model.addAttribute("title", "Log In");
-        return "login";
-    }
-
     @PostMapping("/register")
-    public String processRegistrationForm(@ModelAttribute @Valid RegisterFormDTO registerFormDTO,
-                                          Errors errors, HttpServletRequest request,
-                                          Model model) {
+    public ResponseEntity<?> processRegistrationForm(@RequestBody @Valid RegisterFormDTO registerFormDTO,
+                                                     Errors errors, HttpServletRequest request) {
+
+        Map<String, String> response = new HashMap<>();
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Register");
-            return "register";
+            response.put("message", "Registration form contains errors");
+            return ResponseEntity.badRequest().body(response);
         }
 
         User existingUser = userRepository.findByUsername(registerFormDTO.getUsername());
 
         if (existingUser != null) {
-            errors.rejectValue("username", "username.alreadyexists", "A user with that username already exists");
-            model.addAttribute("title", "Register");
-            return "register";
+            response.put("message", "A user with that username already exists");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
         }
 
         String password = registerFormDTO.getPassword();
         String verifyPassword = registerFormDTO.getVerifyPassword();
         if (!password.equals(verifyPassword)) {
-            errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
-            model.addAttribute("title", "Register");
-            return "register";
+            response.put("message", "Passwords do not match");
+            return ResponseEntity.badRequest().body(response);
         }
 
         User newUser = new User(registerFormDTO.getUsername(), registerFormDTO.getPassword());
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
-        return "redirect:";
+        response.put("message", "Registration successful");
+        return ResponseEntity.ok(response);
     }
+
     @PostMapping("/login")
-    public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO,
-                                   Errors errors, HttpServletRequest request,
-                                   Model model) {
+    public ResponseEntity<?> processLoginForm(@RequestBody @Valid LoginFormDTO loginFormDTO,
+                                              Errors errors, HttpServletRequest request) {
+
+        Map<String, String> response = new HashMap<>();
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Log In");
-            return "login";
+            response.put("message", "Login form contains errors");
+            return ResponseEntity.badRequest().body(response);
         }
 
         User theUser = userRepository.findByUsername(loginFormDTO.getUsername());
 
         if (theUser == null) {
-            errors.rejectValue("username", "user.invalid", "The given username does not exist");
-            model.addAttribute("title", "Log In");
-            return "login";
+            response.put("message", "The given username does not exist");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
 
         String password = loginFormDTO.getPassword();
 
         if (!theUser.isMatchingPassword(password)) {
-            errors.rejectValue("password", "password.invalid", "Invalid password");
-            model.addAttribute("title", "Log In");
-            return "login";
+            response.put("message", "Invalid password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
 
         setUserInSession(request.getSession(), theUser);
 
-        return "redirect:";
+        response.put("message", "Login successful");
+        return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/logout")
-    public String logout(HttpServletRequest request){
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request) {
         request.getSession().invalidate();
-        return "redirect:/login";
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Logout successful");
+        return ResponseEntity.ok(response);
     }
-
 }
