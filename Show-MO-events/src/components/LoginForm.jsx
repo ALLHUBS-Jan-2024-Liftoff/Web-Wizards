@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import GoogleLogin from './GoogleLogin'; // Adjust the path if necessary
+
 
 const LoginForm = () => {
   const [loginData, setLoginData] = useState({
@@ -120,11 +122,16 @@ const LoginForm = () => {
           onChange={handleChange}
         />
         {loginErrors.password && <p className="error">{loginErrors.password}</p>}
-      </div>
-      {loginErrors.general && <p className="error">{loginErrors.general}</p>}
-      <button type="submit" className="btn btn-primary">Login</button>
+     </div>
+           {loginErrors.general && <p className="error">{loginErrors.general}</p>}
+           <button type="submit" className="btn btn-primary">Login</button>
 
-    </form>
+           {/* Google Login Button */}
+           <div className="google-login">
+             <p>Or login with Google:</p>
+             <GoogleLogin />
+           </div>
+         </form>
   );
 };
 

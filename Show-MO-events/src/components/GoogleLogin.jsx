@@ -71,7 +71,7 @@ const GoogleLogin = () => {
   return (
    <button onClick={trySampleRequest}>
      <img
-       src="./src/asserts/google.jpeg"
+       src=""
        alt="Sign in with Google"
        style={{ width: '100px', height: 'auto' }} // Adjust width and height as needed
      />
