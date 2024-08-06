@@ -128,7 +128,7 @@ const LoginForm = () => {
 
            {/* Google Login Button */}
            <div className="google-login">
-             <p>Or login with Google:</p>
+             <p>Login or SignUp with: Google</p>
              <GoogleLogin />
            </div>
          </form>
