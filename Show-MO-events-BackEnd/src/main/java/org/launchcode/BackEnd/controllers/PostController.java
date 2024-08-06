@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/posts")
@@ -30,9 +31,60 @@ public class PostController
         return new ResponseEntity<>(savedPost, HttpStatus.CREATED);
     }
 
+    //Read a single post...
+    @GetMapping("/{id}")
+    public ResponseEntity<Post> getPostById(@PathVariable Integer id)
+    {
+        Optional<Post> post = postRepository.findById(id);
+
+        if(post.isPresent())
+        {
+            return new ResponseEntity<>(post.get(), HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    //Update a post...
+    @PutMapping("/{id}")
+    public ResponseEntity<Post> updatePost(@PathVariable Integer id, @RequestBody Post postDetails)
+    {
+        Optional<Post> postOpt = postRepository.findById(id);
+
+        if(postOpt.isPresent())
+        {
+            Post post = postOpt.get();
+            post.setTitle(postDetails.getTitle());
+            post.setContent(postDetails.getContent());
+            Post updatedPost = postRepository.save(post);
+            return new ResponseEntity<>(updatedPost, HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    //Delete a post...
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePost(@PathVariable Integer id)
+    {
+        if(postRepository.existsById(id))
+        {
+            postRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        else
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping("/hello")
     public String testEndpoint()
     {
-        return "Hello. from the test endpoint!";
+        return "Hello, from the test endpoint!";
     }
 }
