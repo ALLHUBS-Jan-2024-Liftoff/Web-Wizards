@@ -2,17 +2,28 @@ import React, { useState } from 'react';
 import PostList from './PostList';
 import './App.css';
 
-const PostForm = ({ addPost }) => {
+const PostForm = ({ addPost}) => {
     const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
 	const [posts, setPost] = useState([]);
 	
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 	    e.preventDefault();
-		addPost({title, content});
-		
-		setTitle('');
-		setContent('');
+		const response = await fetch('http://localhost:8080/api/posts/create', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ title, content }),
+		});
+		if (response.ok)
+		{
+			console.log('Post created successfully.');
+		}
+		else
+		{
+			console.log('Failed to create post.');
+		}
 	};
 	
 	return (
