@@ -1,6 +1,7 @@
 
 
 import React, { useEffect } from 'react';
+import "./Google.css";
 
 const GoogleLogin = () => {
   const YOUR_CLIENT_ID = '562269835682-vjv4akf84462tffrat30qqniqedoel02.apps.googleusercontent.com';
@@ -69,13 +70,7 @@ const GoogleLogin = () => {
   };
 
   return (
-   <button onClick={trySampleRequest}>
-     <img
-       src="./src/asserts/google.jpeg"
-       alt="Sign in with Google"
-       style={{ width: '100px', height: 'auto' }} // Adjust width and height as needed
-     />
-   </button>
+   <button className="google-login-button" onClick={trySampleRequest}></button>
 
   );
 };

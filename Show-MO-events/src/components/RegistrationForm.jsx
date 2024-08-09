@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+
 const RegistrationPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -79,6 +80,8 @@ const RegistrationPage = () => {
           <p>
             <Link to="/">Back to Home</Link>
           </p>
+
+
         </div>
       </div>
     </div>
