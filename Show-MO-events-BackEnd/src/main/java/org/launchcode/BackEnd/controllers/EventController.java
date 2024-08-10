@@ -15,9 +15,7 @@ import org.springframework.validation.Errors;
 
 import java.util.Optional;
 
-/**
- * Created by Chris Bay
- */
+
 @Controller
 @RequestMapping("events")
 public class EventController {
