@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import GoogleLogin from './GoogleLogin'; // Adjust the path if necessary
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+
 
 
 const LoginForm = () => {
@@ -125,6 +127,11 @@ const LoginForm = () => {
      </div>
            {loginErrors.general && <p className="error">{loginErrors.general}</p>}
            <button type="submit" className="btn btn-primary">Login</button>
+
+           {/* Forgot Password Link */}
+                 <div className="forgot-password">
+                   <Link to="/forgot-password">Forgot Password?</Link>
+                 </div>
 
            {/* Google Login Button */}
            <div className="google-login">
