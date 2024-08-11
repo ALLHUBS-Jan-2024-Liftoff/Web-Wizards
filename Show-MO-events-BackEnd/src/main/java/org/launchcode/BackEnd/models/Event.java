@@ -1,67 +1,73 @@
 package org.launchcode.BackEnd.models;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-
-import java.util.Objects;
-
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 public class Event extends AbstractEntity {
 
-    @NotBlank(message = "Name is required")
-    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
-    private String name;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @Valid
     @NotNull
-    private EventDetails eventDetails;
+    @Size(min = 5, max = 100)
+    private String title;
 
-    @ManyToOne
-    @NotNull(message = "Category is required")
-    private EventCategory eventCategory;
+    @NotNull
+    private LocalDate date;
 
-    public Event(String name, EventCategory eventCategory) {
-        this.name = name;
-        this.eventCategory = eventCategory;
+    @NotNull
+    private LocalTime time;
+
+    @NotBlank
+    @Size(min = 5, max = 100)
+    private String details;
+
+    public Event() {
     }
 
-    public Event() {}
-
-    public String getName() {
-        return name;
+    public Event(String title, LocalDate date, LocalTime time, String details) {
+        this.title = title;
+        this.date = date;
+        this.time = time;
+        this.details = details;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public @NotNull String getTitle() {
+        return title;
     }
 
-    public EventCategory getEventCategory() {
-        return eventCategory;
+    public void setTitle(@NotNull String title) {
+        this.title = title;
     }
 
-    public void setEventCategory(EventCategory eventCategory) {
-        this.eventCategory = eventCategory;
+    public @NotNull LocalDate getDate() {
+        return date;
     }
 
-    public EventDetails getEventDetails() {
-        return eventDetails;
+    public void setDate(@NotNull LocalDate date) {
+        this.date = date;
     }
 
-    public void setEventDetails(EventDetails eventDetails) {
-        this.eventDetails = eventDetails;
+    public @NotNull LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(@NotNull LocalTime time) {
+        this.time = time;
+    }
+
+    public @NotBlank String getDetails() {
+        return details;
+    }
+
+    public void setDetails(@NotBlank String details) {
+        this.details = details;
     }
 
     @Override
     public String toString() {
-        return name;
+        return "Event - Title: " + this.getTitle() + "\nDate: " + this.getDate() + "\nTime: " + this.getTime() + "\nDetails: " + this.getDetails();
     }
-
 }
