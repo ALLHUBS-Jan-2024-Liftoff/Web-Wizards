@@ -2,6 +2,7 @@ package org.launchcode.BackEnd.models;
 
 
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 
@@ -11,10 +12,10 @@ import java.util.Objects;
 public abstract class AbstractEntity {
 
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
