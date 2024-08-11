@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-public class Comment
+public class Comment extends AbstractEntity
 {
     @Column(nullable = false)
     private String text;
