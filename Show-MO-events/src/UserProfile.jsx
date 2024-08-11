@@ -65,21 +65,12 @@ const UserProfile = ({ user, posts }) => {
     return (
 	    <ProfileContainer>
 		    <ProfileHeader>
-			<Avatar src={user.avatar} alt="User Avatar" />
+			<Avatar alt="User Avatar" />
 			
-			<Username>{user.username}</Username>
-			<Bio>{user.bio}></Bio>
+			<Username>Username</Username>
+			<Bio>Bio</Bio>
 			</ProfileHeader>
-			
-			<PostsContainer>
-			{posts.map((post) => (
-			    <Post key = {post.id}>
-				<PostTitle>{post.title}</PostTitle>
-				<PostContent>{post.content}</PostContent>
-				</Post>
-			))}
-			</PostsContainer>
-			</ProfileContainer>
+		</ProfileContainer>
 		);
 	};
 	

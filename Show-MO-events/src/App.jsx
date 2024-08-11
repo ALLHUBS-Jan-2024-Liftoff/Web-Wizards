@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
 import PostForm from './PostForm';
 import UserProfile from './UserProfile';
+import SearchProfile from './SearchProfile';
 
 const user = {
 	avatar:'https://via.placeholder.com/100',
@@ -114,11 +115,15 @@ function App () {
 	<li>
 	<Link to="/profile">User Profile</Link>
 	</li>
+	<li>
+	<Link to="/search">Search Posts</Link>
+	</li>
 	</ul>
 	</nav>
 	    <Routes>
 		<Route path="/create" element={<PostForm /> } />
-		<Route path="/profile" component={UserProfile} />
+		<Route path="/profile" element={<UserProfile /> } />
+		<Route path="/search" element={<SearchProfile /> } />
 		</Routes>
 	</div>
 	</Router>

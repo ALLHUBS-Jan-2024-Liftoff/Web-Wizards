@@ -1,0 +1,49 @@
+.search-profile {
+    max-width: 600px;
+	margin: 0 auto;
+	padding: 20px;
+	font-family: Arial, sans-serif;
+}
+
+.search-profile h1 {
+    text-align: center;
+	color: #333;
+}
+
+.search-input {
+    width: 100%;
+	padding: 10px;
+	margin-bottom: 20px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 16px;
+}
+
+.posts-list {
+    display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.post-item {
+    padding: 20px;
+	border: 1px solid #eee;
+	border-radius: 4px;
+	background-color: #fafafa;
+	transition: background-color 0.3s ease;
+}
+
+.post-item:hover {
+    background-color: #f0f0f0;
+}
+
+.post-item h2 {
+    margin: 0 0 10px;
+	color: #333;
+}
+
+.post-item p {
+    margin: 0;
+	color: #666;
+}
+
