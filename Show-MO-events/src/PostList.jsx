@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PostForm from './PostForm';
 import EditPostForm from './EditPostForm';
+import Comments from './Comments';
 
 const PostList = ({posts, addPost, updatePost }) => {
 	const [postList, setPostList] = useState([]);
@@ -8,7 +9,7 @@ const PostList = ({posts, addPost, updatePost }) => {
 	const [editTitle, setEditTitle] = useState('');
 	const [editContent, setEditContent] = useState('');
 	const [isEditing, setIsEditing] = useState(false);
-
+    const [visibleComments, setVisibleComments] = useState({});
 	
 	useEffect(() => {
 		fetch('http://localhost:8080/api/posts')
@@ -101,6 +102,14 @@ const PostList = ({posts, addPost, updatePost }) => {
 			console.error('There was an error deleting the post!', error);
 		}
 	};
+	
+	const handleViewComments = (index) => {
+		//Logic to show/hide comments goes here...
+		setVisibleComments((prevState) => ({
+			...prevState,
+			[index]: !prevState[index],
+		}));
+	};
 			
     return (
 	    <div>
@@ -126,11 +135,24 @@ const PostList = ({posts, addPost, updatePost }) => {
 		<p>{post.content}</p>
 		<button onClick={() => handleEdit(index)}>Edit</button>
 		<button onClick={() => handleDelete(index)}>Delete</button>
-		</div>
-		)}
-		</div>
+		<button onClick = {() => handleViewComments(index)}>
+		{visibleComments[index] ? 'Hide Comments' : 'View All Comments'}
+		</button>
+		{visibleComments[index] && <Comments postId={post.id} /> }
+			{!visibleComments[index] && (
+			<div>
+			{post.comments.length === 0 && (
+			    <div>
+				<textarea placeholder="Add the first comment.." />
+				<button> Add Comment </button>
+			    </div>
+			    )}
+		    </div>
+			)}
+	      </div>
+	     )}
+		 </div>
 		))}
-		
 		</div>
 	);
 };

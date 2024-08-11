@@ -13,6 +13,16 @@ const user = {
 
 function App () {
     const [posts, setPosts] = useState([]);
+	const [showComments, setShowComments] = useState([]);
+	
+	const handleToggleComments = postId => {
+		setShowComments(prevState => ({
+			...prevState,
+			[postId]: !prevState[postId] || false,
+		}));
+	};
+	
+	
 	
 	useEffect(() => {
 		const fetchPosts = async() => {
@@ -139,6 +149,7 @@ function App () {
 			<p> {post.content} </p>
 			<button onClick = {() => onEdit(post)}>Edit</button>
 		    <button onClick = {() => handleDelete(post.id)}>Delete</button>
+			<button onClick = {() => handleDelete(post.id)}>Show Comments</button>
 			</div>
 		))}
 		</div>

@@ -52,6 +52,7 @@ const Comments = ({ postId }) => {
 						<ul>
 						{comments.map(comment => (
 						    <li key = {comment.id}>{comment.text}</li>
+						))}
 						</ul>
 						<input
 						    type="text"
