@@ -9,6 +9,8 @@ import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
 import LoginForm from './components/loginForm/LoginForm';
 import RegistrationForm from './components/registrationForm/RegistrationForm';
+import PasswordResetForm from './components/passwordReset/PasswordResetForm';
+
 
 
 export default function App() {
@@ -24,6 +26,7 @@ export default function App() {
           <Route path="contact-us" element={<ContactUs />} />
           <Route path="login" element={<LoginForm />} />
           <Route path="register" element={<RegistrationForm />} />
+          <Route path="forgot-password" element={<PasswordResetForm />} />
         </Route>
       </Routes>
     </BrowserRouter>
