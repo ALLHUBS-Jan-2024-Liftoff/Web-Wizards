@@ -24,45 +24,45 @@ const Comments = ({ postId }) => {
 			}
 		};
 		
-		const handleAddComment = async() => {
-		    try
+	const handleAddComment = async() => {
+		try
+		{
+			const response = await fetch('/comments',
 			{
-			    const response = await fetch('/comments',
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ postId: postId, text: newComment }),
+				});
+				const data = await response.json();
+				
+				setComments([...comments, data]);
+				setNewComment('');
+				}
+				catch(error)
 				{
-				    method: 'POST',
-					headers: {
-					    'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({ postId: postId, text: newComment }),
-					});
-					const data = await response.json();
-					
-					setComments([...comments, data]);
-					setNewComment('');
+					console.error('There was an error adding the comment: ', error);
 					}
-					catch(error)
-					{
-					    console.error('There was an error adding the comment: ', error);
-						}
-					};
-					
-					return (
-					    <div>
-						<h3>Comments</h3>
-						<ul>
-						{comments.map(comment => (
-						    <li key = {comment.id}>{comment.text}</li>
-						))}
-						</ul>
-						<input
-						    type="text"
-							value={newComment}
-							onChange={e => setNewComment(e.target.value)}
-							placeholder="Add a comment"
-							/>
-						<button onClick={handleAddComment}>Add Comment</button>
-						</div>
-					);
 				};
 				
-				export default Comments;
+				return (
+					<div>
+					<h3>Comments</h3>
+					<ul>
+					{comments.map(comment => (
+						<li key = {comment.id}>{comment.text}</li>
+					))}
+					</ul>
+					<input
+						type="text"
+						value={newComment}
+						onChange={e => setNewComment(e.target.value)}
+						placeholder="Add a comment"
+						/>
+					<button onClick={handleAddComment}>Add Comment</button>
+					</div>
+				);
+			};
+				
+export default Comments;
