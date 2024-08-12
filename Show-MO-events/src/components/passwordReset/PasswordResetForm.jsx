@@ -1,59 +1,89 @@
 import React, { useState } from 'react';
 
-const ForgotPassword = () => {
-  const [email, setEmail] = useState('');
+const PasswordResetForm = () => {
+  const [username, setUsername] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
-
-  const handleChange = (e) => {
-    setEmail(e.target.value);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (newPassword !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
     try {
-      const response = await fetch('http://localhost:8080/api/auth/forgot-password', {
+      const response = await fetch('http://localhost:8080/api/auth/reset-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ username, newPassword, confirmPassword }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        setMessage('A password reset link has been sent to your email.');
+        setMessage("Password reset successful");
         setError('');
       } else {
+        setError(data.message || "Failed to reset password. Please try again.");
         setMessage('');
-        setError(data.message || 'Failed to send password reset link. Please try again.');
       }
     } catch (error) {
-      console.error('Error sending password reset link:', error);
-      setMessage('');
+      console.error('Error resetting password:', error);
       setError('An error occurred. Please try again.');
+      setMessage('');
     }
   };
 
   return (
-    <div className="forgot-password-container">
-      <h2>Forgot Password</h2>
+    <div className="password-reset-container">
+      <h2>Password Reset</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="email">Email Address</label>
+          <label htmlFor="username">Username</label>
           <input
-            type="email"
-            id="email"
-            name="email"
+            type="text"
+            id="username"
+            name="username"
             className="form-control"
-            value={email}
-            onChange={handleChange}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            autoComplete="username"  // Add this line
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary">Send Reset Link</button>
+        <div className="form-group">
+          <label htmlFor="newPassword">New Password</label>
+          <input
+            type="password"
+            id="newPassword"
+            name="newPassword"
+            className="form-control"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            autoComplete="new-password"  // Add this line
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            className="form-control"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            autoComplete="new-password"  // Add this line
+            required
+          />
+        </div>
+        <button type="submit" className="btn btn-primary">Reset Password</button>
       </form>
       {message && <p className="success-message">{message}</p>}
       {error && <p className="error-message">{error}</p>}
@@ -61,4 +91,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default PasswordResetForm;
