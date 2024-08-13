@@ -38,8 +38,8 @@ const Header = () => {
       </div>
       <nav style={navStyle}>
         <Link to="/home">Home</Link>
-        <Link to="/create-post">Create Post</Link>
-        <Link to="/create-event">Create Event</Link>
+        <Link to="/create-post">Post</Link>
+        <Link to="/event-manager">Event</Link>
         <Link to="/about-us">About Us</Link>
         <Link to="/contact-us">Contact Us</Link>
         <Link to="/login">Login</Link>
