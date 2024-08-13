@@ -92,6 +92,18 @@ const EventManager = () => {
         }
     };
 
+    const formatTimeTo12Hour = (time24) => {
+        const [hours, minutes] = time24.split(':');
+        const hours12 = ((hours % 12) || 12).toString();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        return `${hours12.padStart(2, '0')}:${minutes} ${ampm}`;
+    };
+
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('en-US', options);
+    };
+
     return (
         <div style={{ display: 'flex', justifyContent: 'space-between', padding: '20px' }}>
             <div style={{ width: '50%' }}>
@@ -100,7 +112,8 @@ const EventManager = () => {
                 <ul>
                     {events.map((event) => (
                         <li key={event.id} style={{ marginBottom: '10px' }}>
-                            <strong>{event.title}</strong> - {event.date} {event.time}
+                            <strong>{event.title}</strong> - {formatDate(event.date)} {formatTimeTo12Hour(event.time)}
+                            <p>{event.details}</p>
                             <button onClick={() => handleEditClick(event)} style={{ marginLeft: '10px' }}>Edit</button>
                             <button onClick={() => handleDeleteClick(event.id)} style={{ marginLeft: '10px' }}>Delete</button>
                         </li>
