@@ -1,27 +1,40 @@
 package org.launchcode.BackEnd.controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
+//@CrossOrigin
+@RequestMapping("/search")
 @RestController
 public class SearchController
 {
-    private final String EVENTBRITE_API_URL = "https://www.eventbriteapi.com/v3/";
-    private final String API_KEY = "YOUR_API_KEY";
+    private static final String TICKETMASTER_API_URL = "https://app.ticketmaster.com/discovery/v2/events.json";
+    private static final String TICKETMASTER_API_KEY = "QkpmVdtYEDlV2nGaYZjb6by8m3oWGJPy";
 
-    @GetMapping("/search")
-    public String getNearbyEvents(@RequestParam String location)
+    @GetMapping("/find-events")
+    public ResponseEntity<String> getNearbyEvents(@RequestParam String location)
     {
-        RestTemplate restTemplate = new RestTemplate();
+        try
+        {
+            //Make the HTTP request using RestTemplate
+            RestTemplate restTemplate = new RestTemplate();
 
-        String url = EVENTBRITE_API_URL +
-                "events/search/?location.address=" +
-                location + "&token=" + API_KEY;
+            String url = TICKETMASTER_API_URL + "?apikey=" + TICKETMASTER_API_KEY + "&city=" + location;
 
-        //Parse the JSON response to Java objs...
-        //Return list of events...
-        return restTemplate.getForObject(url, String.class);
+            ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+
+            return response;
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            return new ResponseEntity<>("An error occurred while fetching nearby events: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 }

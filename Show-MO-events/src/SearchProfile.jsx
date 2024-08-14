@@ -9,35 +9,57 @@ const posts = [
 ];
 
 const SearchProfile = () => {
-	const [searchTerm, setSearchTerm] = useState('');
-	const [filteredPosts, setFilteredPosts] = useState(posts);
+	const [query, setQuery] = useState('');
+	const [events, setEvents] = useState([]);
+	const [error, setError] = useState(null);
 	
-	const handleSearch = (e) => {
-		const value = e.target.value;
-		setSearchTerm(value);
-		const filtered = posts.filter(post => 
-		post.title.toLowerCase().includes(value.toLowerCase())
-		);
+	const handleSearch = async () => {
+	try
+	{
+			const response = await fetch(`http://localhost:8080/search/find-events?location=${query}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+		});
+		
+		if(!response.ok)
+		{
+			throw new Error('Network response was not ok...');
+		}
+		const data = await response.json();
+		
+		setEvents(data._embedded.events);
+		
+	}
+	catch(error)
+	{
+		setError(error.message);
+	}
 	};
 	
 	return (
-	<div className = "search-profile">
-	<h1>Search Your Posts</h1>
-	<input type="text"
-	       placeholder="Search by title..."
-		   value = {searchTerm}
-		   onChange = {handleSearch}
-		   className = "search-input"
-		   />
-	<div className = "posts-list">
-	{filteredPosts.map(post => (
-	    <div key ={post.id} className = "post-item">
-		<h2>{post.title}</h2>
-		<p>{post.content}</p>
+	    <div>
+		<h1>Search Nearby Events...</h1>
+		<input
+		type="text"
+		value={query}
+		onChange={(e) => setQuery(e.target.value)}
+		placeholder="Enter location for events..."
+		/>
+		<button onClick = {handleSearch}>Search Events</button>
+		
+		{error && <p>Error: {error}</p>}
+		
+		<ul>
+		{events.map((event) => (
+		<li key = {event.id}>
+			{event.name} - {event.dates.start.LocalDate}
+		</li>
+		))}
+		</ul>
 		</div>
-	))}
-	</div>
-	</div>
 	);
 };
+
 export default SearchProfile;
