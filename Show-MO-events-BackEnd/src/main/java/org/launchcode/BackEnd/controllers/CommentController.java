@@ -80,7 +80,7 @@ public class CommentController
     {
         if(!postRepository.existsById(postId))
         {
-            throw new NoSuchElementException("Post not found with ID: " + postId);
+            throw new NoSuchElementException("Post not found with ID: " + postIdorg);
         }
 
         return commentRepository.findById(commentID).map(comment -> {
