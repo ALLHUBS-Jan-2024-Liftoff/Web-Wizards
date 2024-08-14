@@ -139,16 +139,6 @@ const PostList = ({posts, addPost, updatePost }) => {
 		{visibleComments[index] ? 'Hide Comments' : 'View All Comments'}
 		</button>
 		{visibleComments[index] && <Comments postId={post.id} /> }
-			{!visibleComments[index] && (
-			<div>
-			{post.comments.length === 0 && (
-			    <div>
-				<textarea placeholder="Add the first comment.." />
-				<button> Add Comment </button>
-			    </div>
-			    )}
-		    </div>
-			)}
 	      </div>
 	     )}
 		 </div>

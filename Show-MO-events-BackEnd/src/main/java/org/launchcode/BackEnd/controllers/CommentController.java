@@ -2,15 +2,18 @@ package org.launchcode.BackEnd.controllers;
 
 
 import org.launchcode.BackEnd.models.Comment;
+import org.launchcode.BackEnd.models.Post;
 import org.launchcode.BackEnd.models.data.CommentRepository;
 import org.launchcode.BackEnd.models.data.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/comments")
@@ -22,27 +25,48 @@ public class CommentController
     @Autowired
     private CommentRepository commentRepository;
 
-    @GetMapping("/{postID}")
+    @CrossOrigin
+    @GetMapping("/{postId}")
     public ResponseEntity<List<Comment>> getAllCommentsByPostID(@PathVariable Integer postId)
     {
-        return ResponseEntity.ok(commentRepository.findByPostId(postId));
-    }
+        Optional<Post> post = postRepository.findById(postId);
 
-    @PostMapping("/{postID}")
-    public ResponseEntity<Comment> createComment(@PathVariable Integer postID, @RequestBody Comment commentRequest)
-    {
-        return postRepository.findById(postID).map(post -> {
-            commentRequest.setPost(post);
-            return ResponseEntity.ok(commentRepository.save(commentRequest));
-        }).orElseThrow(() -> new NoSuchElementException("Post not found with id: " + postID));
-    }
-
-    @PutMapping("/{postID}/")
-    public Comment updateComment(@PathVariable Integer postID, @PathVariable Integer commentID, @RequestBody Comment commentRequest)
-    {
-        if(!postRepository.existsById(postID))
+        if(post.isPresent())
         {
-            throw new NoSuchElementException("Post not found with ID: " + postID);
+            List<Comment> comments = commentRepository.findByPostId(postId);
+            return new ResponseEntity<>(comments, HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @CrossOrigin
+    @PostMapping("/{postId}")
+    public ResponseEntity<Comment> createComment(@PathVariable Integer postId, @RequestBody Comment commentRequest)
+    {
+        Optional<Post> post = postRepository.findById(postId);
+
+        if(post.isPresent())
+        {
+            commentRequest.setPost(post.get());
+            Comment savedComment = commentRepository.save(commentRequest);
+
+            return new ResponseEntity<>(savedComment, HttpStatus.CREATED);
+        }
+        else
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/{postId}")
+    public Comment updateComment(@PathVariable Integer postId, @PathVariable Integer commentID, @RequestBody Comment commentRequest)
+    {
+        if(!postRepository.existsById(postId))
+        {
+            throw new NoSuchElementException("Post not found with ID: " + postId);
         }
 
         return commentRepository.findById(commentID).map(comment -> {
@@ -51,12 +75,12 @@ public class CommentController
         }).orElseThrow(() -> new NoSuchElementException("Comment not found with ID" + commentID));
     }
 
-    @DeleteMapping("/{postID}")
-    public ResponseEntity<?> deleteComment(@PathVariable Integer postID, @PathVariable Integer commentID)
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<?> deleteComment(@PathVariable Integer postId, @PathVariable Integer commentID)
     {
-        if(!postRepository.existsById(postID))
+        if(!postRepository.existsById(postId))
         {
-            throw new NoSuchElementException("Post not found with ID: " + postID);
+            throw new NoSuchElementException("Post not found with ID: " + postId);
         }
 
         return commentRepository.findById(commentID).map(comment -> {
