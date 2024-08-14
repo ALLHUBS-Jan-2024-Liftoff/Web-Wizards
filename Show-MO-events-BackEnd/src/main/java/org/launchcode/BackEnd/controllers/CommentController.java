@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/api/posts")
+@RequestMapping("/comments")
 public class CommentController
 {
     @Autowired
@@ -22,22 +22,22 @@ public class CommentController
     @Autowired
     private CommentRepository commentRepository;
 
-    @GetMapping("/{postID}/comments")
-    public List<Comment> getAllCommentsByPostID(@PathVariable Integer postId)
+    @GetMapping("/{postID}")
+    public ResponseEntity<List<Comment>> getAllCommentsByPostID(@PathVariable Integer postId)
     {
-        return commentRepository.findByPostId(postId);
+        return ResponseEntity.ok(commentRepository.findByPostId(postId));
     }
 
-    @PostMapping("/{postID}/comments")
-    public Comment createComment(@PathVariable Integer postID, @RequestBody Comment commentRequest)
+    @PostMapping("/{postID}")
+    public ResponseEntity<Comment> createComment(@PathVariable Integer postID, @RequestBody Comment commentRequest)
     {
         return postRepository.findById(postID).map(post -> {
             commentRequest.setPost(post);
-            return commentRepository.save(commentRequest);
+            return ResponseEntity.ok(commentRepository.save(commentRequest));
         }).orElseThrow(() -> new NoSuchElementException("Post not found with id: " + postID));
     }
 
-    @PutMapping("/{postID}/comments/{commentID}")
+    @PutMapping("/{postID}/")
     public Comment updateComment(@PathVariable Integer postID, @PathVariable Integer commentID, @RequestBody Comment commentRequest)
     {
         if(!postRepository.existsById(postID))
@@ -51,7 +51,7 @@ public class CommentController
         }).orElseThrow(() -> new NoSuchElementException("Comment not found with ID" + commentID));
     }
 
-    @DeleteMapping("/{postID}/comments/{commentID}")
+    @DeleteMapping("/{postID}")
     public ResponseEntity<?> deleteComment(@PathVariable Integer postID, @PathVariable Integer commentID)
     {
         if(!postRepository.existsById(postID))
