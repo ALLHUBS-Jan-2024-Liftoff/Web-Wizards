@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
 public class SearchController
 {
     private static final String TICKETMASTER_API_URL = "https://app.ticketmaster.com/discovery/v2/events.json";
-    private static final String TICKETMASTER_API_KEY = "QkpmVdtYEDlV2nGaYZjb6by8m3oWGJPy";
+    private static final String TICKETMASTER_API_KEY = "";
 
     @GetMapping("/find-events")
     public ResponseEntity<String> getNearbyEvents(@RequestParam String location)
