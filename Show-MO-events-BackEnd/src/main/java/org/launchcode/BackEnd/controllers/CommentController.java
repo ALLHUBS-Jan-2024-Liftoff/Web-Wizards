@@ -1,16 +1,17 @@
 package org.launchcode.BackEnd.controllers;
 
-
 import org.launchcode.BackEnd.models.Comment;
 import org.launchcode.BackEnd.models.Post;
+import org.launchcode.BackEnd.models.User;
 import org.launchcode.BackEnd.models.data.CommentRepository;
 import org.launchcode.BackEnd.models.data.PostRepository;
+import org.launchcode.BackEnd.models.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -24,6 +25,9 @@ public class CommentController
 
     @Autowired
     private CommentRepository commentRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @CrossOrigin
     @GetMapping("/{postId}")
@@ -44,20 +48,41 @@ public class CommentController
 
     @CrossOrigin
     @PostMapping("/{postId}")
-    public ResponseEntity<Comment> createComment(@PathVariable Integer postId, @RequestBody Comment commentRequest)
+    public ResponseEntity<Comment> createComment(@PathVariable Integer postId, @RequestBody Comment commentRequest, Principal principal)
     {
-        Optional<Post> post = postRepository.findById(postId);
-
-        if(post.isPresent())
+        try
         {
-            commentRequest.setPost(post.get());
+            Optional<Post> postOptional = postRepository.findById(postId);
+
+            if(!postOptional.isPresent())
+            {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+
+            //Find the user by username...
+            String username = principal.getName();
+
+            Optional<User> userOptional = Optional.ofNullable(userRepository.findByUsername(username));
+
+            if(!userOptional.isPresent())
+            {
+                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            }
+
+            //Set the post and user to the comment...
+            commentRequest.setPost(postOptional.get());
+            commentRequest.setUserID(userOptional.get().getId());
+
+            //Save the comment...
             Comment savedComment = commentRepository.save(commentRequest);
 
+            //Return the saved comment with a 201 status code...
             return new ResponseEntity<>(savedComment, HttpStatus.CREATED);
         }
-        else
+        catch(Exception e)
         {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            //Return a 500 status code with an error message...
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -80,7 +105,7 @@ public class CommentController
     {
         if(!postRepository.existsById(postId))
         {
-            throw new NoSuchElementException("Post not found with ID: " + postIdorg);
+            throw new NoSuchElementException("Post not found with ID: " + postId);
         }
 
         return commentRepository.findById(commentID).map(comment -> {

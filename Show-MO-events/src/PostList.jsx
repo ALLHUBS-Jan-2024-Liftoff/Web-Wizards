@@ -103,6 +103,8 @@ const PostList = ({posts, addPost, updatePost }) => {
 		}
 	};
 	
+	const defaultUserId = 'guest'; //Default user ID for non-signed in users...
+	
 	const handleViewComments = (index) => {
 		//Logic to show/hide comments goes here...
 		setVisibleComments((prevState) => ({
@@ -138,12 +140,12 @@ const PostList = ({posts, addPost, updatePost }) => {
 		<button onClick = {() => handleViewComments(index)}>
 		{visibleComments[index] ? 'Hide Comments' : 'View All Comments'}
 		</button>
-		{visibleComments[index] && <Comments postId={post.id} /> }
-	      </div>
-	     )}
-		 </div>
-		))}
-		</div>
+		{visibleComments[index] && <Comments postId={post.id} userId = {defaultUserId} /> }
+	    </div>
+	    )}
+	</div>
+	))}
+	</div>
 	);
 };
 

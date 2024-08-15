@@ -7,17 +7,17 @@ import java.time.LocalDate;
 @Entity
 public class Comment extends AbstractEntity
 {
-    @Column(nullable = false)
+    @Column(name = "text", nullable = false)
     private String text;
 
     @ManyToOne
     @JoinColumn(name="post_id", nullable = false)
     private Post post;
 
-    @Column(nullable = false)
+    @Column(name = "userID", nullable = false)
     private Integer userID;
 
-    @Column(nullable = false)
+    @Column(name = "created_at", nullable = false)
     private LocalDate createdAt;
 
     public Comment()
@@ -40,7 +40,7 @@ public class Comment extends AbstractEntity
     }
 
     public Post getPost() {
-        return post;
+        return this.post;
     }
 
     public void setPost(Post post) {

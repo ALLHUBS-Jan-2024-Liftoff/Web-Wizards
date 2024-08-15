@@ -1,7 +1,7 @@
 //Comments.jsx
 import React, { useState, useEffect } from 'react';
 
-const Comments = ({ postId }) => {
+const Comments = ({ userId, postId }) => {
     const [comments, setComments] = useState([]);
 	const [newComment, setNewComment] = useState('');
 	
@@ -40,24 +40,36 @@ const Comments = ({ postId }) => {
 		}
 	};
 		
-	const handleAddComment = () => {
+	const handleAddComment = async(postId, userId, newComment) => {
+		try
+		{
 			if(newComment.trim() === '') return;
 			
-			fetch(`http://localhost:8080/comments/${postId}`, {
+			const response = await fetch(`http://localhost:8080/comments/${postId}`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ comment: newComment }),
-			})
-			.then(response => response.json())
-			.then(data => {
-				setComments(prevComments => [...prevComments, data]);
-				setNewComment('');
-			})
-			.catch(error => {
-				console.error('There was an error adding the comment!', error);
-			});	
+				body: JSON.stringify({ 
+				    postId: postId,
+					userId: userId || 'guest',
+				    text: newComment ,
+					createdAt: new Date().toISOString(), //Current date...
+				}),
+			});
+			
+			if(!response.ok)
+			{
+				throw new Error('Failed to add comment...');
+			}
+			
+			const data = await response.json();
+			console.log('Comment added successfully: ', data);
+		}
+		catch(error)
+		{
+			console.error('Error adding comment: ', error);
+		}
 	};
 				
 return (
@@ -75,7 +87,7 @@ return (
 		onChange={e => setNewComment(e.target.value)}
 		placeholder="Add a comment"
 		/>
-	<button onClick={() => handleAddComment}>Add Comment</button>
+	<button onClick={() => handleAddComment(postId, userId, newComment)}>Add Comment</button>
 	</div>
 </div>
 );
