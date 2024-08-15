@@ -1,0 +1,27 @@
+.google-login-button {
+  width: 200px; /* Adjust the width as needed */
+  height: 50px; /* Adjust the height as needed */
+  background-image: url('./GoogleButton.jpg');
+  background-size: cover; /* Ensure the image covers the entire button */
+  background-position: center;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: white; /* Text color */
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Optional: add text shadow for better readability */
+  transition: transform 0.3s ease; /* Smooth transform transition */
+}
+
+.google-login-button:hover {
+  transform: scale(1.05); /* Slightly enlarge the button on hover */
+  opacity: 0.9; /* Slightly reduce opacity on hover for a visual effect */
+}
+
+.google-login-button:active {
+  transform: scale(0.95); /* Slightly reduce the size on click for a "pressed" effect */
+}
