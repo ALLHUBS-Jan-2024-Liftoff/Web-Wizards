@@ -2,7 +2,6 @@ package org.launchcode.BackEnd.models;
 
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
@@ -27,7 +26,24 @@ public class User extends AbstractEntity {
         return encoder.matches(password, pwHash);
     }
 
+    public String getUsername() {
+        return username;
+    }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
+    public String getPwHash() {
+        return pwHash;
+    }
 
+    public void setPwHash(String pwHash) {
+        this.pwHash = pwHash;
+    }
+
+    // New setPassword method to update the password
+    public void setPassword(String password) {
+        this.pwHash = encoder.encode(password);
+    }
 }
