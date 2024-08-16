@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import GoogleLogin from './GoogleLogin'; // Adjust the path if necessary
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import './Login.css';
 
 
 
