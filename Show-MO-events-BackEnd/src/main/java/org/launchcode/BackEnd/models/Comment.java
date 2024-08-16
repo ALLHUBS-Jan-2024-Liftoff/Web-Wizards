@@ -1,5 +1,6 @@
 package org.launchcode.BackEnd.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -12,10 +13,13 @@ public class Comment extends AbstractEntity
 
     @ManyToOne
     @JoinColumn(name="post_id", nullable = false)
+    @JsonIgnoreProperties("comments")
     private Post post;
 
-    @Column(name = "userID", nullable = false)
-    private Integer userID;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnoreProperties("comments")
+    private User user;
 
     @Column(name = "created_at", nullable = false)
     private LocalDate createdAt;
@@ -25,10 +29,10 @@ public class Comment extends AbstractEntity
 
     }
 
-    public Comment(String text, Post post, Integer userID) {
+    public Comment(String text, Post post, User user) {
         this.text = text;
         this.post = post;
-        this.userID = userID;
+        this.user = user;
     }
 
     public String getText() {
@@ -47,12 +51,12 @@ public class Comment extends AbstractEntity
         this.post = post;
     }
 
-    public Integer getUserID() {
-        return userID;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserID(Integer userID) {
-        this.userID = userID;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public LocalDate getCreatedAt() {

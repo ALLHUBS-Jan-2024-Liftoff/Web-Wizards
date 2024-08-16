@@ -1,5 +1,6 @@
 package org.launchcode.BackEnd.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -7,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Entity
 public class User extends AbstractEntity {
 
+    @Column(name = "username", nullable = false, unique = true)
     @NotNull
     private String username;
 

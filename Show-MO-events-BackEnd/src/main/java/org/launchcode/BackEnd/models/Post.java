@@ -29,9 +29,10 @@ public class Post extends AbstractEntity
 
     }
 
-    public Post(String title, String content) {
+    public Post(String title, String content, List<Comment> commentList) {
         this.title = title;
         this.content = content;
+        this.comments = commentList;
     }
 
     public @NotNull String getTitle() {

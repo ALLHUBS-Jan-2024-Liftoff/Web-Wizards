@@ -11,12 +11,57 @@ const PostList = ({posts, addPost, updatePost }) => {
 	const [isEditing, setIsEditing] = useState(false);
     const [visibleComments, setVisibleComments] = useState({});
 	
-	useEffect(() => {
+	const username = localStorage.getItem('username');
+	const [userId, setUserId] = useState(null);
+	
+	const fetchPosts = () => {
 		fetch('http://localhost:8080/api/posts')
-		.then(response => response.json())
-		.then(data => setPostList(data))
+		.then(response => {
+			if(!response.ok)
+			{
+				throw new Error('Network response was not OK during post fetching...');
+			}
+			
+			return response.json();
+		})
+		.then(data => {
+			console.log('Fetched posts data: ', data); //Log the fetched data...
+		    setPostList(data);
+		})
 		.catch(error => console.error('Error fetching posts: ', error));
+	};
+	
+	//Fetch posts...
+	useEffect(() => {
+		fetchPosts();
 	}, []);
+	
+	//Fetch user data...
+	useEffect(() => {
+		const fetchUserId = async () => {
+			
+			if(username)
+			{
+				try
+				{
+					const response = await fetch(`http://localhost:8080/api/auth/user?username=${username}`);
+                    const id = await response.json();
+					setUserId(id);
+				}
+				catch(error)
+				{
+					console.error("Error fetching user ID: ", error);
+				}
+			}
+			else
+			{
+				console.error('Username not found!');
+			}
+		};
+		fetchUserId();
+		
+		}, [username]);
+		
 	
 	const handleTitleChange = (e) => setEditTitle(e.target.value);
 	const handleContentChange = (e) => setEditContent(e.target.value);
@@ -112,6 +157,29 @@ const PostList = ({posts, addPost, updatePost }) => {
 			[index]: !prevState[index],
 		}));
 	};
+	
+	const fetchUserData = async(username) => {
+		try
+		{
+		    const response = await fetch(`http://localhost:8080/api/auth/user?username=${username}`);
+		    
+			if(response.ok)
+			{
+				const userData = await response.json();
+				return userData;
+			}
+			else
+			{
+				console.error('Failed to fetch user data: ', response.statusText);
+				return null;
+			}
+		}
+		catch(error)
+		{
+			console.error('Error fetching user data: ', error);
+			return null;
+		}
+	};
 			
     return (
 	    <div>
@@ -140,7 +208,7 @@ const PostList = ({posts, addPost, updatePost }) => {
 		<button onClick = {() => handleViewComments(index)}>
 		{visibleComments[index] ? 'Hide Comments' : 'View All Comments'}
 		</button>
-		{visibleComments[index] && <Comments postId={post.id} userId = {defaultUserId} /> }
+		{visibleComments[index] && <Comments postId={post.id} userId = {userId} onCommentAdded={fetchPosts} /> }
 	    </div>
 	    )}
 	</div>

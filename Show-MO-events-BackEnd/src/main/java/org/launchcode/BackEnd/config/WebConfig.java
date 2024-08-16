@@ -10,25 +10,9 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/*")
-                .allowedOrigins("http://localhost:5173"); // Allow frontend origin
-//                .allowedMethods("*") // Allow specific methods
-//                .allowedHeaders("*")
-//                .allowCredentials(true); // Allow credentials such as cookies
+                .allowedOrigins("http://localhost:5173") // Allow frontend origin
+                .allowedMethods("*") // Allow specific methods
+                .allowCredentials(true); // Allow credentials such as cookies
     }
 
-//    @Bean
-//    public WebMvcConfigurer corsConfigurer()
-//    {
-//        return new WebMvcConfigurer() {
-//            @Override
-//            public void addCorsMappings(CorsRegistry registry)
-//            {
-//                registry.addMapping("/**")
-//                        .allowedOrigins("http://localhost:5174")
-//                        .allowedMethods("GET", "POST", "PUT")
-//                        .allowedHeaders("*")
-//                        .allowCredentials(true);
-//            }
-//        };
-//    }
 }

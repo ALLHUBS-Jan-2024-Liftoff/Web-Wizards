@@ -1,17 +1,20 @@
 package org.launchcode.BackEnd.controllers;
 
+import jakarta.transaction.Transactional;
 import org.launchcode.BackEnd.models.Comment;
 import org.launchcode.BackEnd.models.Post;
 import org.launchcode.BackEnd.models.User;
 import org.launchcode.BackEnd.models.data.CommentRepository;
 import org.launchcode.BackEnd.models.data.PostRepository;
 import org.launchcode.BackEnd.models.data.UserRepository;
+import org.launchcode.BackEnd.models.dto.CommentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -46,43 +49,37 @@ public class CommentController
         }
     }
 
+    @Transactional
     @CrossOrigin
     @PostMapping("/{postId}")
-    public ResponseEntity<Comment> createComment(@PathVariable Integer postId, @RequestBody Comment commentRequest, Principal principal)
+    public ResponseEntity<Comment> createComment(@PathVariable Integer postId, @RequestBody CommentDTO commentDTO)
     {
         try
         {
-            Optional<Post> postOptional = postRepository.findById(postId);
+            Post post = postRepository.findById(postId).orElseThrow(() -> new NoSuchElementException("Post not found"));
 
-            if(!postOptional.isPresent())
-            {
-                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-            }
+            User user = userRepository.findById(commentDTO.getUserId()).orElseThrow(() -> new NoSuchElementException("User not found when adding comments..."));
 
-            //Find the user by username...
-            String username = principal.getName();
+            Integer userId = commentDTO.getUserId();
 
-            Optional<User> userOptional = Optional.ofNullable(userRepository.findByUsername(username));
 
-            if(!userOptional.isPresent())
-            {
-                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
-            }
+            Comment comment = new Comment();
+            comment.setText(commentDTO.getText());
+            comment.setPost(post);
+            //comment.setUser(user); //No .setUser() only setUserId()...
+            //comment.setUserId(user.getId()); //This line causes a stack overflow...
+            comment.setUser(user);
+            //setUserForComment(comment, userId);
+            comment.setCreatedAt(LocalDate.parse(commentDTO.getCreatedAt()));
 
-            //Set the post and user to the comment...
-            commentRequest.setPost(postOptional.get());
-            commentRequest.setUserID(userOptional.get().getId());
+            Comment savedComment = commentRepository.save(comment);
 
-            //Save the comment...
-            Comment savedComment = commentRepository.save(commentRequest);
-
-            //Return the saved comment with a 201 status code...
-            return new ResponseEntity<>(savedComment, HttpStatus.CREATED);
+            return ResponseEntity.ok(savedComment);
         }
         catch(Exception e)
         {
             //Return a 500 status code with an error message...
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 
@@ -113,4 +110,10 @@ public class CommentController
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new NoSuchElementException("Comment not found with ID" + commentID));
     }
+
+//    private void setUserForComment(Comment comment, Integer userId)
+//    {
+//        //Set the user ID without causing a stack overflow...
+//        comment.setUserId(userId);
+//    }
 }

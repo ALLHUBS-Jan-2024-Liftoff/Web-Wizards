@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthenticationController {
@@ -26,6 +27,21 @@ public class AuthenticationController {
     UserRepository userRepository;
 
     private static final String userSessionKey = "user";
+
+    @GetMapping("/user")
+    public ResponseEntity<Integer> getUserID(@RequestParam String username)
+    {
+        User user = userRepository.findByUsername(username);
+
+        if(user != null)
+        {
+            return ResponseEntity.ok(user.getId());
+        }
+        else
+        {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
 
     public User getUserFromSession(HttpSession session) {
         Integer userId = (Integer) session.getAttribute(userSessionKey);
@@ -46,6 +62,7 @@ public class AuthenticationController {
         session.setAttribute(userSessionKey, user.getId());
     }
 
+    @CrossOrigin
     @PostMapping("/register")
     public ResponseEntity<?> processRegistrationForm(@RequestBody @Valid RegisterFormDTO registerFormDTO,
                                                      Errors errors, HttpServletRequest request) {
@@ -79,6 +96,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(response);
     }
 
+    @CrossOrigin
     @PostMapping("/login")
     public ResponseEntity<?> processLoginForm(@RequestBody @Valid LoginFormDTO loginFormDTO,
                                               Errors errors, HttpServletRequest request) {
@@ -110,6 +128,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(response);
     }
 
+    @CrossOrigin
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request) {
         request.getSession().invalidate();
@@ -118,6 +137,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(response);
     }
 
+    @CrossOrigin
     // New endpoint for resetting the password without using a token
     @PostMapping("/reset-password")
     public ResponseEntity<?> resetPassword(@RequestBody @Valid ResetPasswordDTO resetPasswordDTO, Errors errors) {
