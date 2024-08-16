@@ -87,7 +87,7 @@ const LoginForm = () => {
           setLoginErrors({ username: '', password: '', general: '' });
 
           // Navigate to a different page if needed
-                window.location.href = '/'
+                window.location.href = '/home'
           // e.g., window.location.href = '/home';
         }
       } catch (error) {

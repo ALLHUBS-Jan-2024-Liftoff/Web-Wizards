@@ -37,13 +37,12 @@ const Header = () => {
         <h1 style={titleStyle}>ShowMOEvents</h1>
       </div>
       <nav style={navStyle}>
-        <Link to="/home">Home</Link>
         <Link to="/create-post">Post</Link>
         <Link to="/event-manager">Event</Link>
         <Link to="/about-us">About Us</Link>
         <Link to="/contact-us">Contact Us</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/register">Register</Link>
+        <Link to="/logout">Log Out</Link>
+
       </nav>
     </header>
   );

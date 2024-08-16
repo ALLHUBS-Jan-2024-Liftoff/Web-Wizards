@@ -42,7 +42,6 @@ const PasswordResetForm = () => {
 
   return (
     <div className="password-reset-container">
-      <h2>Password Reset</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="username">Username</label>
