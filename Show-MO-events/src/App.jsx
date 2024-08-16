@@ -4,11 +4,11 @@ import Layout from './pages/Layout';
 import LandingPage from './pages/LandingPage';
 import Home from './pages/Home';
 import CreatePost from './pages/CreatePost';
-import CreateEvent from './pages/CreateEvent';
+import CreateEvent from './pages/EventManager';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
-import LoginForm from './components/LoginForm';
-import RegistrationForm from './components/RegistrationForm';
+import LoginForm from './components/loginForm/LoginForm';
+import RegistrationForm from './components/registrationForm/RegistrationForm';
 
 export default function App() {
   return (
