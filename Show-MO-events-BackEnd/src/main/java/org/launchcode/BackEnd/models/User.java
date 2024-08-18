@@ -1,5 +1,6 @@
 package org.launchcode.BackEnd.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,6 +13,9 @@ public class User extends AbstractEntity {
 
     @NotNull
     private String pwHash;
+
+    @Column(nullable = true)
+    private String sessionId;  // New field to store the session ID
 
     public User() {}
 
@@ -42,8 +46,15 @@ public class User extends AbstractEntity {
         this.pwHash = pwHash;
     }
 
-    // New setPassword method to update the password
     public void setPassword(String password) {
         this.pwHash = encoder.encode(password);
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 }

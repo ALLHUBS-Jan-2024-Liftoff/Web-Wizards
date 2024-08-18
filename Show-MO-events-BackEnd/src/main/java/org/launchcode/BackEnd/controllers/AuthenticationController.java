@@ -97,26 +97,21 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
 
-        String password = loginFormDTO.getPassword();
-
-        if (!theUser.isMatchingPassword(password)) {
+        if (!theUser.isMatchingPassword(loginFormDTO.getPassword())) {
             response.put("message", "Invalid password");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
 
-        setUserInSession(request.getSession(), theUser);
+        HttpSession session = request.getSession(true);  // Create session if it doesn't exist
+        String sessionId = session.getId();
+        theUser.setSessionId(sessionId);  // Set the session ID in the User entity
+        userRepository.save(theUser);  // Save the User entity with the session ID
 
         response.put("message", "Login successful");
+        response.put("sessionId", sessionId);  // Return the session ID in the response
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletRequest request) {
-        request.getSession().invalidate();
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "Logout successful");
-        return ResponseEntity.ok(response);
-    }
 
     // New endpoint for resetting the password without using a token
     @PostMapping("/reset-password")
