@@ -12,6 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/*")
                 .allowedOrigins("http://localhost:5173") // Allow frontend origin
                 .allowedMethods("*") // Allow specific methods
+                .allowedHeaders("*")
                 .allowCredentials(true); // Allow credentials such as cookies
     }
 

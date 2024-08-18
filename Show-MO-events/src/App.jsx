@@ -1,26 +1,20 @@
+// src/App.jsx
+
 import React, { useEffect, useState } from 'react';
-//import Routes from './Routes';
-import { BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
 import PostForm from './PostForm';
 import UserProfile from './UserProfile';
 import SearchProfile from './SearchProfile';
-
+import LoginForm from './components/loginForm/LoginForm';
+import RegistrationForm from './components/registrationForm/RegistrationForm';
+import PasswordResetForm from './components/passwordReset/PasswordResetForm';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './pages/Layout';
 import LandingPage from './pages/LandingPage';
 import Home from './pages/Home';
 import CreatePost from './pages/CreatePost';
-import CreateEvent from './pages/CreateEvent';
+import CreateEvent from './pages/EventManager';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
-import LoginForm from './components/loginForm/LoginForm';
-import RegistrationForm from './components/registrationForm/RegistrationForm';
-import PasswordResetForm from './components/passwordReset/PasswordResetForm';
-
-const user = {
-	avatar:'https://via.placeholder.com/100',
-	username: 'John Doe',
-	bio: 'This is a short bio about the user.',
-};
 
 function App () {
     const [posts, setPosts] = useState([]);
@@ -122,46 +116,26 @@ function App () {
 	const addPost = (post) => {
 	    setPosts([post, ...posts]);
 	};
-
+	
 	return (
-	<Router>
-	<div>
-	<nav>
-	<ul>
-	<li>
-	<Link to="/create">Create Post</Link>
-	</li>
-	<li>
-	<Link to="/profile">User Profile</Link>
-	</li>
-	<li>
-	<Link to="/search">Search Posts</Link>
-	</li>
-	<li>
-	<Link to="/login">Log in</Link>
-	</li>
-	<li>
-	<Link to="/register">Register</Link>
-	</li>
-	</ul>
-	</nav>
-	    <Routes>
-		<Route path="/create" element={<PostForm /> } />
-		<Route path="/profile" element={<UserProfile /> } />
-		<Route path="/search" element={<SearchProfile /> } />
-		<Route path="home" element={<Home />} />
-		
-	  <Route path="create-post" element={<CreatePost />} />
-	  <Route path="create-event" element={<CreateEvent />} />
-	  <Route path="about-us" element={<AboutUs />} />
-	  <Route path="contact-us" element={<ContactUs />} />
-	  <Route path="/login" element={<LoginForm />} />
-	  <Route path="/register" element={<RegistrationForm />} />
-	  <Route path="/forgot-password" element={<PasswordResetForm />} />
-		</Routes>
-	</div>
-	</Router>
-	);
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={<Layout />}>
+          <Route path="home" element={<Home />} />
+          <Route path="create-post" element={<PostForm />} />
+          <Route path="create-event" element={<CreateEvent />} />
+          <Route path="about-us" element={<AboutUs />} />
+          <Route path="contact-us" element={<ContactUs />} />
+          <Route path="login" element={<LoginForm />} />
+          <Route path="register" element={<RegistrationForm />} />
+          <Route path="forgot-password" element={<PasswordResetForm />} />
+		  <Route path="/profile" element={<UserProfile /> } />
+		  <Route path="/search" element={<SearchProfile /> } />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 
     const PostList = ({ posts }) => {
 	    return (
