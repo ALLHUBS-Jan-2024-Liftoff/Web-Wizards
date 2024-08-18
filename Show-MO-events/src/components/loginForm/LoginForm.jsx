@@ -111,6 +111,7 @@ const LoginForm = () => {
           className="form-control"
           value={loginData.username}
           onChange={handleChange}
+          autoComplete="username"
         />
         {loginErrors.username && <p className="error">{loginErrors.username}</p>}
       </div>
