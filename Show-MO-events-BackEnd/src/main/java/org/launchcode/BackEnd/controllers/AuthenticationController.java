@@ -112,6 +112,23 @@ public class AuthenticationController {
         return ResponseEntity.ok(response);
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<Map<String, String>> logout(HttpServletRequest request) {
+        // Invalidate the session
+        HttpSession session = request.getSession(false); // Use false to not create a new session
+        if (session != null) {
+            session.invalidate();
+        }
+
+        // Return a response with a success message
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Logout successful");
+        return ResponseEntity.ok(response);
+    }
+
+
+
+
 
     // New endpoint for resetting the password without using a token
     @PostMapping("/reset-password")
