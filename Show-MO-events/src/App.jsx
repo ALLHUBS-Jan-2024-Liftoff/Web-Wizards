@@ -12,9 +12,17 @@ import Layout from './pages/Layout';
 import LandingPage from './pages/LandingPage';
 import Home from './pages/Home';
 import CreatePost from './pages/CreatePost';
-import CreateEvent from './pages/EventManager';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
+<<<<<<< HEAD
+=======
+import LoginForm from './components/loginForm/LoginForm';
+import PasswordResetForm from './components/passwordReset/PasswordResetForm';
+import RegistrationForm from './components/registrationForm/RegistrationForm';
+import EventManager from './pages/EventManager';
+import Myprofile from './pages/Myprofile'; // Match the import name with your file name
+
+>>>>>>> main
 
 function App () {
     const [posts, setPosts] = useState([]);
@@ -120,11 +128,20 @@ function App () {
 	return (
     <BrowserRouter>
       <Routes>
+        {/* The LandingPage is the root route */}
         <Route path="/" element={<LandingPage />} />
+
+        {/* Layout as the parent route for nested routes */}
         <Route path="/" element={<Layout />}>
           <Route path="home" element={<Home />} />
+<<<<<<< HEAD
           <Route path="create-post" element={<PostForm />} />
           <Route path="create-event" element={<CreateEvent />} />
+=======
+          <Route path="my-profile" element={<Myprofile />} /> 
+          <Route path="create-post" element={<CreatePost />} />
+          <Route path="event-manager" element={<EventManager />} />
+>>>>>>> main
           <Route path="about-us" element={<AboutUs />} />
           <Route path="contact-us" element={<ContactUs />} />
           <Route path="login" element={<LoginForm />} />
@@ -136,6 +153,7 @@ function App () {
       </Routes>
     </BrowserRouter>
   );
+<<<<<<< HEAD
 
     const PostList = ({ posts }) => {
 	    return (
@@ -155,3 +173,6 @@ function App () {
 };
 
 export default App;
+=======
+}
+>>>>>>> main

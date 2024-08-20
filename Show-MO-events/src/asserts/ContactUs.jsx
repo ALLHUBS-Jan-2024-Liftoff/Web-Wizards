@@ -8,7 +8,7 @@ const ConnectWithUs = () => {
   const teamMembers = [
     {
       name: 'Aishwarya S',
-      linkedin: 'https://www.linkedin.com/in/aishwaryasenthilkumar',
+      linkedin: 'www.linkedin.com/in/aishwaryasenthilkumar',
       github: 'https://github.com/AishuSenthil',
       photo: Aishu, // Update with the actual path to the image
     },

@@ -8,6 +8,7 @@ const LandingPage = () => {
       <h2>Welcome to ShowMOEvents</h2>
       <nav>
         <Link to="/home">Home</Link>
+        <Link to ="/my-profile">Profile</Link>
         <Link to="/create-post">Create Post</Link>
         <Link to="/event-manager">Event</Link>
         <Link to="/about-us">About Us</Link>

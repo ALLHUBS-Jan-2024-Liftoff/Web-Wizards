@@ -38,10 +38,11 @@ const Header = () => {
       </div>
       <nav style={navStyle}>
         <Link to="/home">Home</Link>
+        <Link to="/my-profile">My Profile</Link>
         <Link to="/create-post">Post</Link>
         <Link to="/event-manager">Event</Link>
         <Link to="/about-us">About Us</Link>
-        <Link to="/contact-us">Contact Us</Link>
+        <Link to="/contact-us">Connect</Link>
         <Link to="/login">Login</Link>
         <Link to="/register">Register</Link>
       </nav>
