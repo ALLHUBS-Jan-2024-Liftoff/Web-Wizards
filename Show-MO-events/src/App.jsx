@@ -96,16 +96,14 @@ function App() {
                 <Route path="/" element={<Layout />}>
                     <Route path="home" element={<Home />} />
                     <Route path="create-post" element={<CreatePost />} />
-                    <Route path="create-event" element={<CreatePost />} />
-                    <Route path="my-profile" element={<Myprofile />} />
                     <Route path="event-manager" element={<EventManager />} />
                     <Route path="about-us" element={<AboutUs />} />
                     <Route path="contact-us" element={<ContactUs />} />
                     <Route path="login" element={<LoginForm />} />
                     <Route path="register" element={<RegistrationForm />} />
                     <Route path="forgot-password" element={<PasswordResetForm />} />
-                    <Route path="/profile" element={<UserProfile />} />
-                    <Route path="/search" element={<SearchProfile />} />
+                    <Route path="profile" element={<UserProfile />} />
+                    <Route path="search" element={<SearchProfile />} />
                 </Route>
             </Routes>
         </BrowserRouter>

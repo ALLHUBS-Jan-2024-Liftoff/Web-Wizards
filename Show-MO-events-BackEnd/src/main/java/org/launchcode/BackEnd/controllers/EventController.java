@@ -18,8 +18,9 @@ public class EventController {
 
     @Autowired
     private EventRepository eventRepository;
-
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+//handles requests to retrieve all events from the database
+// and responds with the events in JSON format.
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE) //gives the response in json format
     public ResponseEntity<List<Event>> getAllEvents() {
         return ResponseEntity.ok((List<Event>) eventRepository.findAll());
     }

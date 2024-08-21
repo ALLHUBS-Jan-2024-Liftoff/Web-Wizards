@@ -106,7 +106,7 @@ const EventManager = () => {
 
     return (
         <div style={{ display: 'flex', justifyContent: 'space-between', padding: '20px' }}>
-            <div style={{ width: '50%' }}>
+            <div style={{ width: '60%', paddingRight: '10px' }}>
                 <h2>Event List</h2>
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 <ul>
@@ -120,9 +120,9 @@ const EventManager = () => {
                     ))}
                 </ul>
             </div>
-            <div style={{ width: '45%', marginLeft: '20px' }}>
-                <h2>{formMode === 'create' ? 'Create Event' : 'Update Event'}</h2>
-                <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ width: '35%' }}>
+                <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>{formMode === 'create' ? 'Create Event' : 'Update Event'}</h2>
+                <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <input
                         type="text"
                         name="title"
@@ -130,7 +130,7 @@ const EventManager = () => {
                         value={formData.title}
                         onChange={handleInputChange}
                         required
-                        style={{ marginBottom: '10px', padding: '10px', fontSize: '16px' }}
+                        style={{ marginBottom: '10px', padding: '10px', fontSize: '16px', width: '100%' }}
                     />
                     <input
                         type="date"
@@ -138,7 +138,7 @@ const EventManager = () => {
                         value={formData.date}
                         onChange={handleInputChange}
                         required
-                        style={{ marginBottom: '10px', padding: '10px', fontSize: '16px' }}
+                        style={{ marginBottom: '10px', padding: '10px', fontSize: '16px', width: '100%' }}
                     />
                     <input
                         type="time"
@@ -146,7 +146,7 @@ const EventManager = () => {
                         value={formData.time}
                         onChange={handleInputChange}
                         required
-                        style={{ marginBottom: '10px', padding: '10px', fontSize: '16px' }}
+                        style={{ marginBottom: '10px', padding: '10px', fontSize: '16px', width: '100%' }}
                     />
                     <textarea
                         name="details"
@@ -154,7 +154,7 @@ const EventManager = () => {
                         value={formData.details}
                         onChange={handleInputChange}
                         required
-                        style={{ marginBottom: '10px', padding: '10px', fontSize: '16px' }}
+                        style={{ marginBottom: '10px', padding: '10px', fontSize: '16px', width: '100%' }}
                     />
                     <button type="submit" style={{ padding: '10px', fontSize: '16px', cursor: 'pointer' }}>
                         {formMode === 'create' ? 'Create Event' : 'Update Event'}

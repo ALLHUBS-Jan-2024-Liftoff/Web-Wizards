@@ -8,12 +8,14 @@ const Header = () => {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '0 10px',
-    backgroundColor: '#f5f5dc',
+    padding: '0px 0.00px', // Further reduced padding to minimize space at the top
+    backgroundColor: '#f5f5dc', // Light cream
+    margin: '0', // Ensure no additional margin on the header
   };
 
   const navStyle = {
     display: 'flex',
+    alignItems: 'center',
     gap: '10px',
   };
 
@@ -22,12 +24,14 @@ const Header = () => {
     height: '60px',
     marginRight: '10px',
     borderRadius: '50%',
-    objectFit: 'cover', // Changed from 'full' to 'cover' to fit the container
+    objectFit: 'cover',
   };
 
   const titleStyle = {
-    margin: '0',
+    margin: '0', // Remove any margin on the title to reduce space
+    padding: '0', // Ensure no padding on the title
     fontSize: '1.5em',
+    color: '#8b4513', // Light brown
   };
 
   return (
@@ -38,13 +42,13 @@ const Header = () => {
       </div>
       <nav style={navStyle}>
         <Link to="/home">Home</Link>
-        <Link to="/my-profile">My Profile</Link>
+        <Link to="/profile">Profile</Link>
+        <Link to="/search">Search</Link>
         <Link to="/create-post">Post</Link>
         <Link to="/event-manager">Event</Link>
         <Link to="/about-us">About Us</Link>
         <Link to="/contact-us">Connect</Link>
-        {/* Add the Logout component */}
-        <Logout /> {/* This will render the Logout button */}
+        <Logout /> {/* Logout button */}
       </nav>
     </header>
   );

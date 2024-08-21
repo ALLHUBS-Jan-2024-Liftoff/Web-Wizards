@@ -15,6 +15,8 @@ const LandingPage = () => {
         <Link to="/contact-us">Contact Us</Link>
         <Link to="/login">Login</Link>
         <Link to="/register">Register</Link>
+        <Link to="/profile" element={<UserProfile />} />
+        <Link to="/search" element={<SearchProfile />} />
       </nav>
     </div>
   );
