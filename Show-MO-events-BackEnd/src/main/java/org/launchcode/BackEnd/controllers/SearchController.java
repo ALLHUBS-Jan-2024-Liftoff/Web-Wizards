@@ -1,5 +1,6 @@
 package org.launchcode.BackEnd.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -8,10 +9,16 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class SearchController
 {
-    private static final String TICKETMASTER_API_URL = "https://app.ticketmaster.com/discovery/v2/events.json";
-    private static final String TICKETMASTER_API_KEY = "";
+    @Autowired
+    private RestTemplate restTemplate;
 
-    @GetMapping("/find-events")
+    private static final String TICKETMASTER_API_URL = "https://app.ticketmaster.com/discovery/v2/events.json";
+
+    private static final String TICKETMASTER_API_KEY = System.getenv("TICKETMASTER_API_KEY");
+
+    //    @CrossOrigin("https://app.ticketmaster.com")
+//    @CrossOrigin("http://localhost:5173")
+    @GetMapping("find-events")
     public ResponseEntity<String> getNearbyEvents(@RequestParam String location)
     {
         try
@@ -23,7 +30,8 @@ public class SearchController
 
             ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
 
-            return response;
+
+            return new ResponseEntity<String>(String.valueOf(response.getBody()), HttpStatus.OK);
         }
         catch(Exception e)
         {

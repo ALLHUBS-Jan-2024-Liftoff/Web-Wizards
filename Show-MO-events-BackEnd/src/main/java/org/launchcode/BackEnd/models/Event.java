@@ -9,6 +9,8 @@ import java.time.LocalTime;
 
 @Entity
 public class Event extends AbstractEntity {
+//Fields are private to keep them safe from direct changes,
+// while getters and setters are public to give a controlled way to read or update those values.
 
     @NotNull
     @Size(min = 5, max = 100)

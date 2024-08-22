@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
-	const navigate = useNavigate();
-	const [user, setUser] = useState(null);
-	const [posts, setPosts] = useState([]);
-	
-	// State to hold profile data
+    const navigate = useNavigate();
+    const [user, setUser] = useState(null);
+    const [posts, setPosts] = useState([]);
+    
+    // State to hold profile data
     const [profile, setProfile] = useState({
         name: '',
         bio: '',
@@ -25,7 +25,7 @@ const UserProfile = () => {
     // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Save profile data to the server or local storage here
+        // Simulate saving profile data to the server or local storage here
         alert('Profile saved!');
     };
 
