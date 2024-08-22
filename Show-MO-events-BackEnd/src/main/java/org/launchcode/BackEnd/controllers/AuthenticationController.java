@@ -3,13 +3,13 @@ package org.launchcode.BackEnd.controllers;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.apache.coyote.Response;
 import org.launchcode.BackEnd.models.User;
 import org.launchcode.BackEnd.models.data.UserRepository;
 import org.launchcode.BackEnd.models.dto.LoginFormDTO;
 import org.launchcode.BackEnd.models.dto.RegisterFormDTO;
 import org.launchcode.BackEnd.models.dto.ResetPasswordDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -23,10 +23,59 @@ import java.util.Optional;
 @RequestMapping("/api/auth")
 public class AuthenticationController {
 
+//    class UserProfileRequest
+//    {
+//        private String name;
+//        private String biography;
+//        private String avatarUrl;
+//
+//        public String getName() {
+//            return name;
+//        }
+//
+//        public void setName(String name) {
+//            this.name = name;
+//        }
+//
+//        public String getBiography() {
+//            return biography;
+//        }
+//
+//        public void setBiography(String biography) {
+//            this.biography = biography;
+//        }
+//
+//        public String getAvatarUrl() {
+//            return avatarUrl;
+//        }
+//
+//        public void setAvatarUrl(String avatarUrl) {
+//            this.avatarUrl = avatarUrl;
+//        }
+//    }
+
     @Autowired
     UserRepository userRepository;
 
     private static final String userSessionKey = "user";
+
+//    @PutMapping("{id}/profile")
+//    public ResponseEntity<User> updateUserProfile(@PathVariable Integer id, @RequestBody UserProfileRequest profileRequest)
+//    {
+//        Optional<User> optionalUser = userRepository.findById(id);
+//
+//        if(!optionalUser.isPresent())
+//        {
+//            return ResponseEntity.notFound().build();
+//        }
+//
+//        User user = optionalUser.get();
+//        user.setName(profileRequest.getName());
+//        user.setAvatarUrl(profileRequest.getAvatarUrl());
+//
+//        userRepository.save(user);
+//        return ResponseEntity.ok(user);
+//    }
 
     @GetMapping("/user")
     public ResponseEntity<Integer> getUserID(@RequestParam String username)

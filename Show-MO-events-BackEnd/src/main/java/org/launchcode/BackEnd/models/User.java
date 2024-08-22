@@ -15,6 +15,10 @@ public class User extends AbstractEntity {
     @NotNull
     private String pwHash;
 
+//    private String name;
+//    private String biography;
+//    private String avatarUrl;
+
     public User() {}
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -48,4 +52,28 @@ public class User extends AbstractEntity {
     public void setPassword(String password) {
         this.pwHash = encoder.encode(password);
     }
+
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+//
+//    public String getBiography() {
+//        return biography;
+//    }
+//
+//    public void setBiography(String biography) {
+//        this.biography = biography;
+//    }
+//
+//    public String getAvatarUrl() {
+//        return avatarUrl;
+//    }
+//
+//    public void setAvatarUrl(String avatarUrl) {
+//        this.avatarUrl = avatarUrl;
+//    }
 }

@@ -12,6 +12,21 @@ const UserProfile = () => {
         bio: '',
         avatarUrl: ''
     });
+	
+	useEffect(() => {
+		const savedName = localStorage.getItem('name');
+		const savedBio = localStorage.getItem('bio');
+		const savedAvatarUrl = localStorage.getItem('avatarUrl');
+		
+		if(savedName || savedBio || savedAvatarUrl)
+		{
+			setProfile({
+				name: savedName || '',
+				bio: savedBio || '',
+				avatarUrl: savedAvatarUrl || ''
+			});
+		}
+	}, []);
 
     // Handle form input change
     const handleChange = (e) => {
@@ -25,7 +40,12 @@ const UserProfile = () => {
     // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
+		
         // Save profile data to the server or local storage here
+		localStorage.setItem('name', profile.name);
+		localStorage.setItem('bio', profile.bio);
+		localStorage.setItem('avatarUrl', profile.avatarUrl);
+		
         alert('Profile saved!');
     };
 
