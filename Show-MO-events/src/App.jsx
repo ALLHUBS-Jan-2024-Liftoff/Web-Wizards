@@ -95,7 +95,7 @@ function App() {
                 <Route path="/" element={<LoginForm />} />
                 <Route path="/" element={<Layout />}>
                     <Route path="home" element={<Home />} />
-                    <Route path="create-post" element={<CreatePost />} />
+                    <Route path="create-post" element={<PostForm />} />
                     <Route path="event-manager" element={<EventManager />} />
                     <Route path="about-us" element={<AboutUs />} />
                     <Route path="contact-us" element={<ContactUs />} />
