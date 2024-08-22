@@ -18,14 +18,12 @@ public class PostController
     @Autowired
     private PostRepository postRepository;
 
-    @CrossOrigin
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Post>> getAllPosts()
     {
         return ResponseEntity.ok((List<Post>) postRepository.findAll());
     }
 
-    @CrossOrigin
     @PostMapping("/create")
     public ResponseEntity<Post> createPost(@RequestBody Post post)
     {
@@ -34,7 +32,6 @@ public class PostController
     }
 
     //Read a single post...
-    @CrossOrigin
     @GetMapping("/{id}")
     public ResponseEntity<Post> getPostById(@PathVariable Integer id)
     {
@@ -51,7 +48,6 @@ public class PostController
     }
 
     //Update a post...
-    @CrossOrigin
     @PutMapping("/{id}")
     public ResponseEntity<Post> updatePost(@PathVariable Integer id, @RequestBody Post postDetails)
     {
@@ -72,7 +68,6 @@ public class PostController
     }
 
     //Delete a post...
-    @CrossOrigin
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePost(@PathVariable Integer id)
     {

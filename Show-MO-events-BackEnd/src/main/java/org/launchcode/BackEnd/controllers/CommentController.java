@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -32,7 +30,6 @@ public class CommentController
     @Autowired
     private UserRepository userRepository;
 
-    @CrossOrigin
     @GetMapping("/{postId}")
     public ResponseEntity<List<Comment>> getAllCommentsByPostID(@PathVariable Integer postId)
     {
@@ -50,7 +47,6 @@ public class CommentController
     }
 
     @Transactional
-    @CrossOrigin
     @PostMapping("/{postId}")
     public ResponseEntity<Comment> createComment(@PathVariable Integer postId, @RequestBody CommentDTO commentDTO)
     {
@@ -110,10 +106,4 @@ public class CommentController
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new NoSuchElementException("Comment not found with ID" + commentID));
     }
-
-//    private void setUserForComment(Comment comment, Integer userId)
-//    {
-//        //Set the user ID without causing a stack overflow...
-//        comment.setUserId(userId);
-//    }
 }

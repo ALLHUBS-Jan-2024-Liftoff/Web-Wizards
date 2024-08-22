@@ -1,8 +1,6 @@
 // src/App.jsx
-
 import React, { useEffect, useState } from 'react';
 import PostForm from './PostForm';
-import UserProfile from './UserProfile';
 import SearchProfile from './SearchProfile';
 import LoginForm from './components/loginForm/LoginForm';
 import RegistrationForm from './components/registrationForm/RegistrationForm';
@@ -15,6 +13,7 @@ import CreatePost from './pages/CreatePost';
 import CreateEvent from './pages/EventManager';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
+import UserProfile from './UserProfile';
 
 function App () {
     const [posts, setPosts] = useState([]);
@@ -109,7 +108,7 @@ function App () {
 		}
 		catch(error)
 		{
-			console.error('There was an error ddeleting the post!', error);
+			console.error('There was an error deleting the post!', error);
 		}		
 	};
 
@@ -123,35 +122,20 @@ function App () {
         <Route path="/" element={<LandingPage />} />
         <Route path="/" element={<Layout />}>
           <Route path="home" element={<Home />} />
-          <Route path="create-post" element={<PostForm />} />
+          <Route path="my-profile" element = { < UserProfile />} />
+		  <Route path="create-post" element={<PostForm />} />
           <Route path="create-event" element={<CreateEvent />} />
           <Route path="about-us" element={<AboutUs />} />
           <Route path="contact-us" element={<ContactUs />} />
           <Route path="login" element={<LoginForm />} />
           <Route path="register" element={<RegistrationForm />} />
           <Route path="forgot-password" element={<PasswordResetForm />} />
-		  <Route path="/profile" element={<UserProfile /> } />
-		  <Route path="/search" element={<SearchProfile /> } />
+		  <Route path="search" element={<SearchProfile /> } />
         </Route>
       </Routes>
     </BrowserRouter>
   );
 
-    const PostList = ({ posts }) => {
-	    return (
-		<div>
-		{posts.map((post,index) => (
-		    <div key = {index}>
-			<h2> {post.title} </h2>
-			<p> {post.content} </p>
-			<button onClick = {() => onEdit(post)}>Edit</button>
-		    <button onClick = {() => handleDelete(post.id)}>Delete</button>
-			<button onClick = {() => handleToggleComments(post.id)}>Show Comments</button>
-			</div>
-		))}
-		</div>
-		);
-    };
 };
 
 export default App;

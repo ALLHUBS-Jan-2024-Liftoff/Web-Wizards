@@ -51,13 +51,29 @@ const SearchProfile = () => {
 		
 		{error && <p>Error: {error}</p>}
 		
-		<ul>
-		{events.map((event) => (
-		<li key = {event.id}>
-			{event.name} - {event.dates.start.LocalDate}
-		</li>
-		))}
-		</ul>
+		<h1>Events</h1>
+		<table>
+		<thead>
+		    <tr>
+			    <th>Event Name</th>
+				<th>Location</th>
+				<th>Date</th>
+				<th>Time</th>
+				<th>Link</th>
+			</tr>
+		</thead>
+		<tbody>
+		    {events.map(event => (
+			    <tr key = {event.id}>
+				<td>{event.name}</td>
+				<td>{event._embedded.venues[0].city.name}</td>
+				<td>{new Date(event.dates.start.localDate).toLocaleDateString()}</td>
+				<td>{new Date(event.dates.start.dateTime).toLocaleTimeString()}</td>
+				<td><a href = {event.url} target="_blank" rel="noopener noreferrer">View Event</a></td>
+				</tr>
+			))}
+			</tbody>
+		</table>
 		</div>
 	);
 };

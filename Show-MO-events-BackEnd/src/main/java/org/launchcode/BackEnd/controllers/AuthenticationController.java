@@ -9,6 +9,7 @@ import org.launchcode.BackEnd.models.dto.LoginFormDTO;
 import org.launchcode.BackEnd.models.dto.RegisterFormDTO;
 import org.launchcode.BackEnd.models.dto.ResetPasswordDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -18,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthenticationController {
@@ -62,7 +62,6 @@ public class AuthenticationController {
         session.setAttribute(userSessionKey, user.getId());
     }
 
-    @CrossOrigin
     @PostMapping("/register")
     public ResponseEntity<?> processRegistrationForm(@RequestBody @Valid RegisterFormDTO registerFormDTO,
                                                      Errors errors, HttpServletRequest request) {
@@ -96,7 +95,6 @@ public class AuthenticationController {
         return ResponseEntity.ok(response);
     }
 
-    @CrossOrigin
     @PostMapping("/login")
     public ResponseEntity<?> processLoginForm(@RequestBody @Valid LoginFormDTO loginFormDTO,
                                               Errors errors, HttpServletRequest request) {
@@ -128,7 +126,6 @@ public class AuthenticationController {
         return ResponseEntity.ok(response);
     }
 
-    @CrossOrigin
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request) {
         request.getSession().invalidate();
@@ -137,7 +134,6 @@ public class AuthenticationController {
         return ResponseEntity.ok(response);
     }
 
-    @CrossOrigin
     // New endpoint for resetting the password without using a token
     @PostMapping("/reset-password")
     public ResponseEntity<?> resetPassword(@RequestBody @Valid ResetPasswordDTO resetPasswordDTO, Errors errors) {
