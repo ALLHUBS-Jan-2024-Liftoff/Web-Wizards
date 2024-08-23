@@ -21,6 +21,7 @@ public class EventController {
 
     // Handles requests to retrieve all events from the database
     // and responds with the events in JSON format.
+//    Response entity wraps the response data and status code which makes it easier for thr frontend to unwrap and use.
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Event>> getAllEvents() {
         return ResponseEntity.ok((List<Event>) eventRepository.findAll());
