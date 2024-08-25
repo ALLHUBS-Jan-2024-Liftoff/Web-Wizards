@@ -27,7 +27,7 @@ public class AuthenticationController {
     UserRepository userRepository;
 
     private static final String userSessionKey = "user";
-
+    // Endpoint to get the user ID based on the username
     @GetMapping("/user")
     public ResponseEntity<Integer> getUserID(@RequestParam String username)
     {
@@ -42,7 +42,7 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
-
+    // Retrieves the user from the HTTP session //
     public User getUserFromSession(HttpSession session) {
         Integer userId = (Integer) session.getAttribute(userSessionKey);
         if (userId == null) {
@@ -57,12 +57,12 @@ public class AuthenticationController {
 
         return user.get();
     }
-
+    // Stores the user's ID in the HTTP session
     private static void setUserInSession(HttpSession session, User user) {
         session.setAttribute(userSessionKey, user.getId());
     }
-
-    @CrossOrigin
+// uses a 409 conflict error if the username already exist //
+//    @CrossOrigin
     @PostMapping("/register")
     public ResponseEntity<?> processRegistrationForm(@RequestBody @Valid RegisterFormDTO registerFormDTO,
                                                      Errors errors, HttpServletRequest request) {
@@ -95,8 +95,13 @@ public class AuthenticationController {
         response.put("message", "Registration successful");
         return ResponseEntity.ok(response);
     }
+    // Handles user login
 
-    @CrossOrigin
+    // 400 bad request if errors //
+    // 404 not found if username does not exist//
+    // 401 unauthorized if the password is incorrect//
+    // 200 is a successful login //
+//    @CrossOrigin
     @PostMapping("/login")
     public ResponseEntity<?> processLoginForm(@RequestBody @Valid LoginFormDTO loginFormDTO,
                                               Errors errors, HttpServletRequest request) {
@@ -127,8 +132,8 @@ public class AuthenticationController {
         response.put("message", "Login successful");
         return ResponseEntity.ok(response);
     }
-
-    @CrossOrigin
+// invalidates user session, 200 is logout success //
+//    @CrossOrigin
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request) {
         request.getSession().invalidate();
@@ -137,8 +142,11 @@ public class AuthenticationController {
         return ResponseEntity.ok(response);
     }
 
-    @CrossOrigin
+//    @CrossOrigin
     // New endpoint for resetting the password without using a token
+    // 400 bad request errors or passwords don't match
+    // 404 not found, if user name does not exist
+    // 200 password is successfully reset
     @PostMapping("/reset-password")
     public ResponseEntity<?> resetPassword(@RequestBody @Valid ResetPasswordDTO resetPasswordDTO, Errors errors) {
         Map<String, String> response = new HashMap<>();

@@ -12,3 +12,5 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     User findByUsername(String username);
 }
+// Repository interface, user and ID are manged //
+// Custom method to gather user name that can be used throughout the code//

@@ -49,3 +49,4 @@ public class User extends AbstractEntity {
         this.pwHash = encoder.encode(password);
     }
 }
+// Uses Password Hashing for extra layer of security //

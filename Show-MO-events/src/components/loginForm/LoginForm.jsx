@@ -61,7 +61,7 @@ const LoginForm = () => {
           body: JSON.stringify(loginData),
           credentials: 'include', // Include credentials like cookies
         });
-
+// spread operator to copy the properties of the object //
         const data = await response.json();
 
         if (!response.ok) {

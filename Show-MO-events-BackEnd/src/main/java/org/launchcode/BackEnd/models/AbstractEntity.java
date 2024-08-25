@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 
 import java.util.Objects;
-
+// created to eliminate repetitive code in file structure //
 @MappedSuperclass
 public abstract class AbstractEntity {
 

@@ -15,7 +15,7 @@ const Logout = () => {
 
       if (response.ok) {
         // Clear any client-side tokens or session data
-        localStorage.removeItem('token');
+        localStorage.removeItem('username');
 
         // Show a success message
         setLogoutMessage('Good job, you did it!');
