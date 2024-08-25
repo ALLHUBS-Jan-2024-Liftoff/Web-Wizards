@@ -5,6 +5,11 @@ import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+
+/*
+* Password Hashing is enabled with BCryptPasswordEncoder
+* User entity for managing application users
+*/
 @Entity
 public class User extends AbstractEntity {
 
@@ -44,7 +49,7 @@ public class User extends AbstractEntity {
         this.pwHash = pwHash;
     }
 
-    // New setPassword method to update the password
+    /* Sets up current password to be replaced by hashed password, no getter and setter */
     public void setPassword(String password) {
         this.pwHash = encoder.encode(password);
     }

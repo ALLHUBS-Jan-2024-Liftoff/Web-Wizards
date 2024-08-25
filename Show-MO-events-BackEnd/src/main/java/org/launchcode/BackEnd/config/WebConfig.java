@@ -1,5 +1,5 @@
 
-package org.launchcode.BackEnd.models;
+package org.launchcode.BackEnd.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
