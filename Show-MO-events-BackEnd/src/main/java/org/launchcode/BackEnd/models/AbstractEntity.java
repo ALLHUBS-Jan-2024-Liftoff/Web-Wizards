@@ -7,7 +7,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 
 import java.util.Objects;
-
+/*
+* Mapped... to the database for the class that extends this one
+* Abstraction of repetitive code, can't be instantiated directly.
+* Auto Generate ID with the @GeneratedValue
+* ID is encapsulated
+*/
 @MappedSuperclass
 public abstract class AbstractEntity {
 

@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 /*
 * Password Hashing is enabled with BCryptPasswordEncoder
 * User entity for managing users
+* inherits methods and traits of Abstract entity "extends"
 */
 @Entity
 public class User extends AbstractEntity {
