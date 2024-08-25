@@ -8,7 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /*
 * Password Hashing is enabled with BCryptPasswordEncoder
-* User entity for managing application users
+* User entity for managing users
 */
 @Entity
 public class User extends AbstractEntity {
@@ -40,7 +40,7 @@ public class User extends AbstractEntity {
     public void setUsername(String username) {
         this.username = username;
     }
-
+/* future state would of removed getters and setters for improved security */
     public String getPwHash() {
         return pwHash;
     }
@@ -49,7 +49,7 @@ public class User extends AbstractEntity {
         this.pwHash = pwHash;
     }
 
-    /* Sets up current password to be replaced by hashed password, no getter and setter */
+    /* Sets up current password to be replaced by hashed password */
     public void setPassword(String password) {
         this.pwHash = encoder.encode(password);
     }
