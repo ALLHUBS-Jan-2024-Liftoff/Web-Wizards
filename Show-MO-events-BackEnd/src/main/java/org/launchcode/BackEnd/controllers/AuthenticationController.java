@@ -22,7 +22,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthenticationController {
-
+// add instance of user repository to the controller to then interact with the database //
     @Autowired
     UserRepository userRepository;
 
@@ -57,7 +57,7 @@ public class AuthenticationController {
 
         return user.get();
     }
-    // Stores the user's ID in the HTTP session
+    // Stores the user's ID in the HTTP session and helps keep track of the user //
     private static void setUserInSession(HttpSession session, User user) {
         session.setAttribute(userSessionKey, user.getId());
     }
