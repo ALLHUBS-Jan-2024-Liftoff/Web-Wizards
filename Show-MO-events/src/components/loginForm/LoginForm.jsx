@@ -19,7 +19,8 @@ const LoginForm = ({ setAuthenticated }) => {
 
   const navigate = useNavigate(); // Initialize useNavigate to allow for Dom navigation //
 
-  // Handle input change
+  // Added this to dynamically update the state based on name and value of the input //
+  // uses spread operator to take the existing username and password and moves them into a new object //
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginData({ ...loginData, [name]: value });
@@ -44,26 +45,26 @@ const LoginForm = ({ setAuthenticated }) => {
     return valid;
   };
 
-  // Handle form submission
+  // Handle form submission //
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission
 
     if (validateLoginForm()) {
       try {
-        // Make POST request using Fetch API
+        // Make POST request using Fetch API to authenticate user //
         const response = await fetch('http://localhost:8080/api/auth/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(loginData),
-          credentials: 'include', // Include credentials like cookies
+          credentials: 'include', // Include credentials like cookies //
         });
 
         const data = await response.json();
 
         if (!response.ok) {
-          // Handle HTTP errors based on status code
+          // Handle HTTP errors based on status code //
           if (response.status === 404) {
             setLoginErrors((prevErrors) => ({
               ...prevErrors,
