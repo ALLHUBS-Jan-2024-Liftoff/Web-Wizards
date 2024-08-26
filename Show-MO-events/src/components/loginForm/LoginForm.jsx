@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate
 import GoogleLogin from './GoogleLogin'; // Adjust the path if necessary
 import './Login.css';
 
+// use as a prop to then update the authenticated state when the user logs in //
+// Also objects store information about the username and password, stores error messages //
 const LoginForm = ({ setAuthenticated }) => {
   const [loginData, setLoginData] = useState({
     username: '',
@@ -15,7 +17,7 @@ const LoginForm = ({ setAuthenticated }) => {
     general: ''
   });
 
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate(); // Initialize useNavigate to allow for Dom navigation //
 
   // Handle input change
   const handleChange = (e) => {
